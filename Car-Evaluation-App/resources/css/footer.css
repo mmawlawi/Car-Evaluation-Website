@@ -1,0 +1,23 @@
+/* footer.css */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content .contact-info ul,
+.footer-content .social-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-content .contact-info ul li,
+.footer-content .social-links ul li {
+    margin-bottom: 10px;
+}
