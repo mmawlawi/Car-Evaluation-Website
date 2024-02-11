@@ -1,27 +1,16 @@
 <footer>
-    <div class="footer-content">
-        <div class="logo">
-            <a href="#"><img src="{{ asset('images/logo.png') }}" alt="Car Marketplace"></a>
+    <div class="container">
+        <div class="footer-col"><span>CARVOLUTION © 2024</span></div>
+        <div class="footer-col">
+            <div class="social-bar-wrap">
+                <a title="Facebook" href="" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a title="Twitter" href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a title="Pinterest" href="" target="_blank"><i class="fa fa-pinterest"></i></a>
+                <a title="Instagram" href="" target="_blank"><i class="fa fa-instagram"></i></a>
+            </div>
         </div>
-        <div class="contact-info">
-            <p>Contact Us:</p>
-            <ul>
-                <li>Email: info@carmarketplace.com</li>
-                <li>Phone: +123-456-7890</li>
-                <!-- Add more contact information as needed -->
-            </ul>
+        <div class="footer-col">
+            <a href="mailto:admin@yoursite.ru">Email US</a>
         </div>
-        <div class="social-links">
-            <p>Follow Us:</p>
-            <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
-                <!-- Add more social media links as needed -->
-            </ul>
-        </div>
-    </div>
-    <div class="copyright">
-        <p>&copy; 2024 Car Marketplace. All rights reserved.</p>
     </div>
 </footer>
