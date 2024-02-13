@@ -58,4 +58,6 @@ footer:after,
     padding: 0 15px;
 }
 
-
+#main-content-container{
+    max-width: 1200px;
+}

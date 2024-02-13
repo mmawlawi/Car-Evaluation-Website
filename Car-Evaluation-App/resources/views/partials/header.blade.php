@@ -1,10 +1,11 @@
 <header>
     <nav class="container">
         <a class="logo" href="">
-            <span>L</span>
-            <span>O</span>
-            <span>G</span>
-            <span>O</span>
+            <span>CAR</span>
+            <span>VO</span>
+            <span>LU</span>
+            <span>TI</span>
+            <span>ON</span>
         </a>
         <div class="nav-toggle"><span></span></div>
         <form action="" method="get" id="searchform">

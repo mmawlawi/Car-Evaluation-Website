@@ -1,8 +1,190 @@
-#home-container {
-    background-color: rgb(250, 198, 126);
-    margin-bottom: 30px;
+
+.hero {
+    background-color: #EF5A42;
+    color: #ffffff;
+    text-align: center;
+    padding: 50px 0;
 }
 
-#car-img {
-    border: thin solid black ;
+/* Main Container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Car display holder */
+.car-display-container{
+    display: flex;
+    justify-content: space-between;
+}
+/* Sidebar Styling */
+.sidebar {
+    width: 20%;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Car Listings Styling */
+.car-listings {
+    width: 75%;
+}
+
+.car-listings h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.car-item {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.car-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.car-item h3 {
+    margin: 0;
+    color: #F8B763;
+    font-size: 18px;
+}
+
+.car-item p {
+    font-size: 16px;
+    color: #666;
+}
+
+.separator {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 40px 0;
+}
+
+
+/* Contact Us Styling */
+.contact-us {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-container form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-container form .form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.contact-container form label {
+    font-size: 1rem;
+    color: #333;
+   
+}
+
+.contact-container form input,
+.contact-container form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    color: #333;
+}
+form input:focus,
+form textarea:focus {
+    outline: 2px solid #F8B763;  
+  }
+
+
+.contact-container form textarea {
+    height: 150px;
+}
+
+.contact-container form button {
+    background-color: #EF5A42;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-container form button:hover {
+    background-color: #F8B763;
+}
+
+.contact-container p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.contact-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.contact-container ul li {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar,
+    .car-listings {
+        width: 100%;
+    }
+
+    .sidebar {
+        margin-bottom: 20px;
+    }
+    .car-display-container{
+        flex-flow: column;
+    }
 }
