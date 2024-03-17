@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CarPredictionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
+
+Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);

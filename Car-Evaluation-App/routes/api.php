@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarPredictionController;
+
 
 
 
@@ -21,6 +21,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
-
-Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
