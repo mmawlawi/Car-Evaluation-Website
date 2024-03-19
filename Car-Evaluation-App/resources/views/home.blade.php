@@ -2,14 +2,14 @@
 
 @section('title', 'Home')
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('js/home.js') }}"></script>
-
 @section('content')
     <div class="container" id="main-content-container">
         <section class="hero">
             <div class="hero-container">
                 <h1>Find Your Perfect Car</h1>
-                <p>Explore top-rated vehicles from leading brands</p> <!-- Search form can go here -->
+                <p style="margin-top: 10px;">Explore top-rated vehicles from leading brands</p>
             </div>
         </section>
         <div class="main-container">
@@ -22,19 +22,26 @@
                             <option value="all">All Makes</option>
                             <option value="Toyota">Toyota</option>
                             <option value="Honda">Honda</option>
-                            <!-- Add more options for other makes -->
                         </select>
+
+                        <label for="year-filter">Year:</label>
+                        <select id="year-filter">
+                            <option value="all">All Years</option>
+                        </select>
+
+                        <label for="price-filter">Price Range:</label>
+                        <select id="price-filter">
+                            <option value="all">All Prices</option>
+                        </select>
+
+                        <!-- Add more filter options as needed -->
+
+                        <button id="apply-filters-btn">Apply Filters</button>
                     </div>
                 </aside>
                 <section class="car-listings">
                     <h2>Featured Listings</h2>
-                    <div class="listings-grid"> <!-- Individual car listings go here -->
-                        <div class="car-item" data-make="Toyota"> <!-- Add data-make attribute with the make of the car -->
-                            <img src="path/to/car-image.jpg" alt="Car Name">
-                            <h3>Car Model Name</h3>
-                            <p>Price: $XX,XXX</p>
-                        </div> <!-- Repeat for each car listing -->
-                    </div>
+                    <div class="listings-grid" id="listings-grid">  </div>
                 </section>
             </div>
             <hr class="separator">

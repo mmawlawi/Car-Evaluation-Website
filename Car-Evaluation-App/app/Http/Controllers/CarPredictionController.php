@@ -31,7 +31,6 @@ class CarPredictionController extends Controller
         // Test data
         $inputData = [
             "Brand" => "Ssangyong",
-            "Year" => 2022,
             "Model" => "Rexton",
             "Car/Suv" => "Sutherland Isuzu Ute",
             "UsedOrNew" => "DEMO",
@@ -39,13 +38,11 @@ class CarPredictionController extends Controller
             "DriveType" => "AWD",
             "FuelType" => "Diesel",
             "FuelConsumption" => 8.7,
-            "Kilometres" => 5595,
             "CylindersinEngine" => 4,
             "BodyType" => "SUV",
             "Doors" => 4,
             "Seats" => 7,
             "EngineL" => 2.2,
-            "CarAge" => 2,
             "State" => "NSW"
         ];
 
@@ -57,9 +54,12 @@ class CarPredictionController extends Controller
             if ($response->successful()) {
                 // Get the prediction from the response
                 $prediction = $response->json()['prediction'];
+                $missing_fields = $response->json()['missing_fields'];
 
                 // Display the prediction
-                return response()->json(['prediction' => $prediction]);
+                return response()->json(['prediction' => $prediction,
+                       'missing_fields' => $missing_fields
+            ]);
             } else {
                 // Handle the case where the request was not successful
                 return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());

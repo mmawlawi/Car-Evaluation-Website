@@ -1,16 +1,37 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 $(document).ready(function () {
-    $('#make-filter').on('change', function () {
-        var selectedMake = $(this).val();
+    function filterAndDisplayCars() {
+        var make = $('#make-filter').val();
+        var year = $('#year-filter').val();
+        var price = $('#price-filter').val();
 
-        $('.car-item').each(function () {
-            var carMake = $(this).data('make');
+        var dummyData = [
+            { make: 'Toyota', year: 2020, price: 25000, bodyType: 'SUV', mileage: 20000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Red', features: ['Sunroof', 'Navigation System'] },
+            { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+        ];
 
-            if (selectedMake === 'all' || selectedMake === carMake) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+        var filteredData = dummyData.filter(function (car) {
+            return (make === 'all' || car.make === make) &&
+                (year === 'all' || car.year == year) &&
+                (price === 'all' || car.price <= parseInt(price));
         });
+
+        var listingsGrid = $('#listings-grid');
+        listingsGrid.empty();
+        $.each(filteredData, function (index, car) {
+            var carItem = $('<div class="car-item">').html(
+                '<img src="path/to/car-image.jpg" alt="' + car.make + ' ' + car.year + '">' +
+                '<h3>' + car.make + ' ' + car.year + '</h3>' +
+                '<p>Price: $' + car.price + '</p>'
+            );
+            listingsGrid.append(carItem);
+        });
+    }
+
+    filterAndDisplayCars();
+
+    $('#apply-filters-btn').click(function () {
+        filterAndDisplayCars();
     });
 });
+

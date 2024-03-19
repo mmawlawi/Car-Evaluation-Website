@@ -31,18 +31,42 @@
     font-size: 20px;
     color: #333;
 }
-
-/* Car Listings Styling */
-.car-listings {
-    width: 75%;
-}
-
-.car-listings h2 {
-    font-size: 24px;
-    color: #333;
+/* Filter Options Styling */
+.filter-options {
     margin-bottom: 20px;
 }
 
+.filter-options label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.filter-options select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.filter-options button {
+    background-color: #EF5A42;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-options button:hover {
+    background-color: #F8B763;
+}
+
+/* Car Listings Styling */
 .listings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -73,6 +97,9 @@
     color: #666;
 }
 
+
+
+
 .separator {
     border: none;
     border-top: 1px solid #ccc;
@@ -83,7 +110,6 @@
 /* Contact Us Styling */
 .contact-us {
     background-color: #f8f9fa;
-    padding: 50px 0;
     text-align: center;
 }
 
@@ -186,5 +212,8 @@ form textarea:focus {
     }
     .car-display-container{
         flex-flow: column;
+    }
+    .filter-options select {
+        width: calc(100% - 20px); 
     }
 }
