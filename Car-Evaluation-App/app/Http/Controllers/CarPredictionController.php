@@ -80,7 +80,7 @@ class CarPredictionController extends Controller
 
     public function getFeatureImportance()
     {
-        $response = Http::get('http://127.0.0.1:5000/aggregated-feature-importance');
+        $response = Http::get('http://127.0.0.1:5000/feature-importance');
         if ($response->successful()) {
             $featureImportance = $response->json();
             return response()->json(['feature_importance' => $featureImportance]);
