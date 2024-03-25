@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
 
 Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
+
+Route::get('/feature-importance', [CarPredictionController::class, 'getFeatureImportance']);
+
+Route::get('/feature-importance-graph', [CarPredictionController::class, 'getFeatureImportanceGraph']);

@@ -17,12 +17,19 @@ class CarPredictionController extends Controller
             $response = Http::post('http://127.0.0.1:5000/predict', $requestData);
 
             if ($response->successful()) {
+                // Get the prediction from the response
                 $prediction = $response->json()['prediction'];
-                return response()->json(['prediction' => $prediction]);
+                $missing_fields = $response->json()['missing_fields'];
+
+                // Display the prediction
+                return response()->json([
+                    'prediction' => $prediction,
+                    'missing_fields' => $missing_fields
+                ]);
             } else {
                 return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());
             }
-        } catch (\Exception $e) { 
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -57,9 +64,10 @@ class CarPredictionController extends Controller
                 $missing_fields = $response->json()['missing_fields'];
 
                 // Display the prediction
-                return response()->json(['prediction' => $prediction,
-                       'missing_fields' => $missing_fields
-            ]);
+                return response()->json([
+                    'prediction' => $prediction,
+                    'missing_fields' => $missing_fields
+                ]);
             } else {
                 // Handle the case where the request was not successful
                 return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());
@@ -67,6 +75,37 @@ class CarPredictionController extends Controller
         } catch (\Exception $e) {
             // Handle exceptions
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getFeatureImportance()
+    {
+        $response = Http::get('http://127.0.0.1:5000/aggregated-feature-importance');
+        if ($response->successful()) {
+            $featureImportance = $response->json();
+            return response()->json(['feature_importance' => $featureImportance]);
+        } else {
+            return response()->json(['error' => 'Failed to get feature importance from Flask API'], $response->status());
+        }
+    }
+
+    public function getFeatureImportanceGraph()
+    {
+        $response = Http::get('http://127.0.0.1:5000/feature-importance-graph');
+
+        if ($response->successful()) {
+            // The response should be the raw image data
+            $imageData = $response->body();
+
+            // Store the image data as a temporary file to serve it to the view
+            $tempImagePath = storage_path('app/public/feature_importance_graph.png');
+            file_put_contents($tempImagePath, $imageData);
+
+            // Return a view and include the path to the temporary image
+            return view('feature-importance', ['imagePath' => 'storage/feature_importance_graph.png']);
+        } else {
+            // Handle errors, such as by displaying an error message
+            return back()->with('error', 'Failed to fetch the feature importance graph.');
         }
     }
 }
