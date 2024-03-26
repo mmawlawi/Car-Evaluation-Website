@@ -8,6 +8,14 @@ $(document).ready(function () {
         var dummyData = [
             { make: 'Toyota', year: 2020, price: 25000, bodyType: 'SUV', mileage: 20000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Red', features: ['Sunroof', 'Navigation System'] },
             { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+            { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+
+            { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+
+            { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+
+            { make: 'Honda', year: 2018, price: 20000, bodyType: 'Sedan', mileage: 30000, transmission: 'Automatic', fuelType: 'Gasoline', color: 'Blue', features: ['Bluetooth', 'Backup Camera'] },
+            
         ];
 
         var filteredData = dummyData.filter(function (car) {

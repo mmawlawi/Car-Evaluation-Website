@@ -24,9 +24,9 @@
                             <option value="Honda">Honda</option>
                         </select>
 
-                        <label for="year-filter">Year:</label>
+                        <label for="year-filter">Model:</label>
                         <select id="year-filter">
-                            <option value="all">All Years</option>
+                            <option value="all">All Models</option>
                         </select>
 
                         <label for="price-filter">Price Range:</label>
@@ -40,7 +40,7 @@
                     </div>
                 </aside>
                 <section class="car-listings">
-                    <h2>Featured Listings</h2>
+                    <h2 style="  margin-bottom: 20px;">Featured Listings</h2>
                     <div class="listings-grid" id="listings-grid">  </div>
                 </section>
             </div>

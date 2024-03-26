@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarPredictionController;
+use App\Http\Controllers\CarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,5 +23,7 @@ Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
 Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
 
 Route::get('/feature-importance', [CarPredictionController::class, 'getFeatureImportance']);
+
+Route::get('/sell-your-car', [CarController::class, 'sellYourCar'])->name('sell-your-car');
 
 Route::get('/feature-importance-graph', [CarPredictionController::class, 'getFeatureImportanceGraph']);

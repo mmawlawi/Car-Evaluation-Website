@@ -21,7 +21,8 @@
 }
 /* Sidebar Styling */
 .sidebar {
-    width: 20%;
+    width: 30%;
+    max-height: 300px;
     background-color: #ffffff;
     padding: 20px;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -67,6 +68,10 @@
 }
 
 /* Car Listings Styling */
+.car-listings{
+    width: 90%;
+    margin-left: 30px;
+}
 .listings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -98,7 +103,6 @@
     font-size: 16px;
     color: #666;
 }
-
 
 
 
@@ -214,6 +218,9 @@ form textarea:focus {
     }
     .car-display-container{
         flex-flow: column;
+    }
+    .car-listings{
+        margin-left: 0;
     }
     .filter-options select {
         width: calc(100% - 20px); 
