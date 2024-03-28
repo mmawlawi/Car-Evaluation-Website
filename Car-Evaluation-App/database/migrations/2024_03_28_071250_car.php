@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('transmission_id');
             $table->integer('drivetype_id');
             $table->integer('fueltype_id');
-            $table->integer('fuelconsumption');
+            $table->float('fuelconsumption');
             $table->integer('kilometers');
             $table->integer('cylinders');
             $table->integer('bodytype_id');
