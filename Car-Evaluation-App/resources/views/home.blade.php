@@ -41,7 +41,16 @@
                 </aside>
                 <section class="car-listings">
                     <h2 style="  margin-bottom: 20px;">Featured Listings</h2>
-                    <div class="listings-grid" id="listings-grid">  </div>
+                    <div class="listings-grid" id="listings-grid"> 
+                        @foreach($cars as $car)
+                            <div class="car-listing">
+                                <!-- Display car details and images here -->
+                                <img src="{{$car->random_photo }}" alt="Car Image">
+                                <h3>{{ $car->year }} {{ $car->model->name }}</h3>
+                                <p>Price: {{ $car->price }}</p>
+                                <!-- Add more details as needed -->
+                            </div>
+                        @endforeach </div>
                 </section>
             </div>
             <hr class="separator">

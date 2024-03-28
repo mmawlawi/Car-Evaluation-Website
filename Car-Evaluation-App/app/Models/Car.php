@@ -29,4 +29,9 @@ class Car extends Model
     ];
 
     public $timestamps = false;
+
+    public function model()
+    {
+        return $this->belongsTo('App\Models\CarModel', 'model_id');
+    }
 }

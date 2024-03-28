@@ -24,16 +24,16 @@ $(document).ready(function () {
                 (price === 'all' || car.price <= parseInt(price));
         });
 
-        var listingsGrid = $('#listings-grid');
-        listingsGrid.empty();
-        $.each(filteredData, function (index, car) {
-            var carItem = $('<div class="car-item">').html(
-                '<img src="path/to/car-image.jpg" alt="' + car.make + ' ' + car.year + '">' +
-                '<h3>' + car.make + ' ' + car.year + '</h3>' +
-                '<p>Price: $' + car.price + '</p>'
-            );
-            listingsGrid.append(carItem);
-        });
+        // var listingsGrid = $('#listings-grid');
+        // listingsGrid.empty();
+        // $.each(filteredData, function (index, car) {
+        //     var carItem = $('<div class="car-item">').html(
+        //         '<img src="path/to/car-image.jpg" alt="' + car.make + ' ' + car.year + '">' +
+        //         '<h3>' + car.make + ' ' + car.year + '</h3>' +
+        //         '<p>Price: $' + car.price + '</p>'
+        //     );
+        //     listingsGrid.append(carItem);
+        // });
     }
 
     filterAndDisplayCars();
