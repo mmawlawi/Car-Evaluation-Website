@@ -1,3 +1,4 @@
+<script src="{{ asset('js/header.js') }}"></script>
 <header>
     <nav class="container">
         <a class="logo" href="">
@@ -13,10 +14,10 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
         <ul id="menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Browse Cars</a></li>
             <li><a href="{{ route('sell-your-car') }}">Sell Your Car</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a id="contact-us" href="{{ route('home') }}#contact-us-section">Contact Us</a></li>
             <li><a href="#">About Us</a></li>
             <li><a href="#">Login</a></li>
         </ul>

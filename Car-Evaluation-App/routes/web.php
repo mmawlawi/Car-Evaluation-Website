@@ -16,7 +16,7 @@ use App\Http\Controllers\CarController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
 

@@ -45,7 +45,7 @@
                 </section>
             </div>
             <hr class="separator">
-            <section class="contact-us">
+            <section id="contact-us-section" class="contact-us">
                 <div class="contact-container">
                     <h2>Contact Us</h2>
                     <form action="#" method="POST">

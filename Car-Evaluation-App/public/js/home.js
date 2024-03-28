@@ -41,5 +41,7 @@ $(document).ready(function () {
     $('#apply-filters-btn').click(function () {
         filterAndDisplayCars();
     });
+
+    
 });
 

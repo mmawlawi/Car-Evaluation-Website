@@ -34,8 +34,8 @@
     
     @include('partials.footer')
 
-    <script src="{{ asset('js/script.js') }}"></script>
-    @yield('scripts')
+    {{-- <script src="{{ asset('js/script.js') }}"></script>
+    @yield('scripts') --}}
 
 </body>
 
