@@ -10,6 +10,7 @@ use App\Models\UsedOrNew;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use App\Models\State;
 
 class OtherAttributes extends Seeder
 {
@@ -56,7 +57,7 @@ class OtherAttributes extends Seeder
 
         $states = ['ACT' , 'AU-VIC' , 'NSW' , 'NT' , 'QLD' , 'SA' , 'TAS' , 'VIC' , 'WA'];
         foreach($states as $state) {
-            $s = new UsedOrNew();
+            $s = new State();
             $s->name = $state;
             $s->save();
         }
