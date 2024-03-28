@@ -15,6 +15,7 @@ class Cars extends Seeder
 
         while (($row = fgetcsv($file)) !== false) {
             $rowData = array_combine($header, $row);
+            
         }
     }
 }

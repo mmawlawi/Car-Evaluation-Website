@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('doors');
             $table->integer('seats');
             $table->integer('price');
-            $table->integer('EngineL');
+            $table->integer('engine_l');
             $table->integer('state_id');
         });
     }
