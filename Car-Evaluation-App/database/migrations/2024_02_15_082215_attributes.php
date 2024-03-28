@@ -43,5 +43,10 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
         });
+
+        Schema::create('state', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+        });
     }
 };

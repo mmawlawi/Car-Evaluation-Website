@@ -20,14 +20,11 @@ class Attributes extends Seeder
         $data = json_decode($json, true);
         
         foreach ($data['Brand-Model'] as $brandName => $models) {
-            // Create the brand
             $brand = new Brand();
             $brand->name = $brandName;
             $brand->save();
 
-            // Iterate over the models for this brand
             foreach ($models as $modelName) {
-                // Create the car model
                 $carModel = new CarModel();
                 $carModel->name = $modelName;
                 $carModel->brand_id = $brand->id;
