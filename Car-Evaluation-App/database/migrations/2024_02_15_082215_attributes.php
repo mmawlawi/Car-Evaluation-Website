@@ -27,6 +27,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('brand_id');
+            $table->string('photo_link_1')->nullable();
+            $table->string('photo_link_2')->nullable();
+            $table->string('photo_link_3')->nullable();
         });
 
         Schema::create('bodytype', function (Blueprint $table) {
