@@ -10,7 +10,8 @@
         </a>
         <div class="nav-toggle"><span></span></div>
         <form action="{{route('search-cars')}}" method="get" id="searchform">
-            <input type="text" placeholder="Search for a car...">
+        @csrf
+            <input name="query" type="text" placeholder="Search for a car...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
         <ul id="menu">

@@ -27,7 +27,7 @@ class SearchController extends Controller
 
         // Assuming you want to uniquely return cars either by brand or model without duplicates
     // $allCars = $cars->concat($carsByBrand)->unique('id')->take(100);
-            dd($allCars);
+            //dd($allCars);
         // Return results - adapt this part to your application's response requirement (view, JSON, etc.)
         return view('browse-cars', compact('allCars'));
     }
