@@ -129,6 +129,7 @@
 .car-item .car-image {
     position: relative;
     overflow: hidden;
+    height: 210px;
     border-radius: 8px;
 }
 

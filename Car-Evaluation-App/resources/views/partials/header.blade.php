@@ -9,7 +9,7 @@
             <span>ON</span>
         </a>
         <div class="nav-toggle"><span></span></div>
-        <form action="" method="get" id="searchform">
+        <form action="{{route('search-cars')}}" method="get" id="searchform">
             <input type="text" placeholder="Search for a car...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
