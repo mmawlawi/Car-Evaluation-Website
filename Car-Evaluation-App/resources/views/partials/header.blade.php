@@ -16,7 +16,7 @@
         </form>
         <ul id="menu">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Browse Cars</a></li>
+            <li><a href="{{route('browse-cars')}}">Browse Cars</a></li>
             <li><a href="{{ route('sell-your-car') }}">Sell Your Car</a></li>
             <li><a id="contact-us" href="{{ route('home') }}#contact-us-section">Contact Us</a></li>
             <li><a href="#">About Us</a></li>

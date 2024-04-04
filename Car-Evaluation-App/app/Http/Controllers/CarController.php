@@ -64,4 +64,10 @@ class CarController extends Controller
 
         return view('home', compact('cars'));
     }
+
+    public function browse_cars(){
+        $allCars = Car::with('model.brand')->paginate(24);
+
+        return view('browse-cars', compact('allCars'));
+    }
 }

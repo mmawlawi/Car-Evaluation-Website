@@ -27,6 +27,9 @@
                 </div>
             @endforeach
         </div>
+        <div class="pagination">
+            {{ $allCars->links('vendor.pagination.custom') }}
+        </div>
     @endif
 </div>
 

@@ -12,24 +12,18 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $brandIds = Brand::where('name', 'LIKE', "%{$query}%")->pluck('id');
 
-        $modelIds = CarModel::where(function ($q) use ($query, $brandIds) {
+        // First, get brand IDs that match the query
+        $brandIds = Brand::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
+    
+        // Now, adjust the query to fetch cars by model name or brand ID with pagination
+        // This example assumes there's a direct relationship or a way to correlate cars with brands through models
+        $allCars = Car::whereHas('model', function ($q) use ($query, $brandIds) {
             $q->where('name', 'LIKE', "%{$query}%")
                 ->orWhereIn('brand_id', $brandIds);
-        })->pluck('id');
-
-       
-        $cars = Car::with('model')->whereIn('model_id', $modelIds)->take(50)->get();
-        $carsByBrand = Car::with('model')->whereIn('brand_id', $brandIds)->take(50)->get();
-
-        // Merge the two collections if needed. Ensure no duplicate cars are added.
-        $allCars = $cars->merge($carsByBrand)->unique('id');
-
-        // Assuming you want to uniquely return cars either by brand or model without duplicates
-        // $allCars = $cars->concat($carsByBrand)->unique('id')->take(100);
-        //dd($allCars);
-        // Return results - adapt this part to your application's response requirement (view, JSON, etc.)
+        })->with('model')->paginate(24); // Adjust the pagination size as needed
+    
+        // Return the paginated list of cars
         return view('browse-cars', compact('allCars'));
     }
 }

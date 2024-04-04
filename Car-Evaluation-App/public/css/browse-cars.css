@@ -74,6 +74,26 @@ h2 {
     background: #0056b3;
 }
 
+.pagination li {
+    display: inline;
+    margin-right: 5px;
+}
+
+.pagination li.active span {
+    font-weight: bold;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: blue;
+}
+
+.pagination li.disabled span,
+.pagination li.disabled a {
+    color: grey;
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .grid {
