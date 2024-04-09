@@ -28,11 +28,11 @@
         @yield('content')
     </main>
 
-    <form method="post" action="/test-prediction">
+    {{-- <form method="post" action="/test-prediction">
         @csrf
         
         <button type="submit">Submit</button>
-    </form>
+    </form> --}}
     
     @include('partials.footer')
 

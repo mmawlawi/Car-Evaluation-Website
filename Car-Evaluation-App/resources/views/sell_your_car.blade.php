@@ -9,9 +9,10 @@
 
             <div class="form-group">
                 <label for="brand">Brand:</label>
-                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand')" required>
+                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand') ; updateModels()"> 
+                    <option value="" selected></option>
                     @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        <option value="{{ $brand->id }}" >{{ $brand->name }}</option>
                     @endforeach
                     <option value="other">Other</option>
                 </select>
@@ -22,11 +23,11 @@
             <div class="form-group">
                 <label for="model">Model:</label>
                 <select name="model_id" id="model" class="form-control"
-                    onchange="showOtherField('model', 'other_model')" required>
+                    onchange="showOtherField('model', 'other_model')">
                     @foreach ($models as $model)
-                        <option value="{{ $model->id }}">{{ $model->name }}</option>
+                        <option value="{{ $model->id }}" brand_id = "{{$model->brand_id}}">{{ $model->name }}</option>
                     @endforeach
-                    <option value="other">Other</option>
+                    <option value="other" >Other</option>
                 </select>
                 <input type="text" name="other_model" id="other_model" class="form-control mt-3" style="display:none;"
                     placeholder="Enter model">
@@ -153,6 +154,30 @@
                 } else {
                     otherField.style.display = 'none';
                 }
+            }
+            
+
+            function updateModels() {
+                var brand_id = document.getElementById('brand').value;
+                var select = document.getElementById('model');
+                var options = select.getElementsByTagName('option');
+                console.log(brand_id);
+                first = true;
+                for (var i = 0; i < options.length; i++) {
+                    var model = options[i];
+                    var model_brand_id = model.getAttribute('brand_id');
+                    console.log(brand_id + " " + model_brand_id);
+                    if (brand_id === model_brand_id || brand_id === 'other') {
+                        model.style.display = 'block';
+                        if (first) {
+                            model.selected = true;
+                            first = false;
+                        }
+                    } else {
+                        model.style.display = 'none';
+                    }
+                }
+
             }
 
             function calculateCarAge() {

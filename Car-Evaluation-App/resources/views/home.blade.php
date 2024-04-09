@@ -40,20 +40,29 @@
                     </div>
                 </aside>
                 <section class="car-listings">
-                    <h2 style="margin-bottom: 20px;">Featured Listings</h2>
+                    <h2 id="featuredListing">Featured Listings</h2>
                     <div class="listings-grid" id="listings-grid"> 
                         @foreach($cars as $car)
                             <div class="car-item">
-                                <h3>{{ $car->year }} {{ $car->model->name }}</h3>
-                                <div class="car-image">
-                                    <img src="{{$car->random_photo }}" alt="Car Image">
-                                    <div class="overlay"></div>
+                                <div class="car-details">
+                                    <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
+                                    <div class="car-image">
+                                        <img src="{{$car->random_photo }}" alt="Car Image">
+                                        <div class="overlay"></div>
+                                    </div>
+                                    <div class="car-details-footer">
+                                        <p class="car-kilometers">Kilometers: {{ $car->kilometers }}</p>
+                                        <p class="car-price">Price: {{ $car->price }}</p>
+                                    </div>
                                 </div>
-                                <p>Price: {{ $car->price }}</p>
-                                <!-- Add more details as needed -->
+                                <div class="discover-car-btn-div">
+                                    <button class="discover-car-btn">Discover Car</button>
+                                </div>
                             </div>
+                        </a>
                         @endforeach
                     </div>
+                    
                 </section>
                 
                 
