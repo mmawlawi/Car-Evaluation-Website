@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <label for="brand">Brand:</label>
-                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand') ; updateModels()"> 
+                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand') ; updateModels()" required> 
                     <option value="" selected></option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}" >{{ $brand->name }}</option>
