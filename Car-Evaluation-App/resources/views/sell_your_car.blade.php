@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <label for="brand">Brand:</label>
-                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand')">
+                <select name="brand_id" id="brand" class="form-control" onchange="showOtherField('brand', 'other_brand')" required>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                     @endforeach
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label for="model">Model:</label>
                 <select name="model_id" id="model" class="form-control"
-                    onchange="showOtherField('model', 'other_model')">
+                    onchange="showOtherField('model', 'other_model')" required>
                     @foreach ($models as $model)
                         <option value="{{ $model->id }}">{{ $model->name }}</option>
                     @endforeach
@@ -36,7 +36,7 @@
                 <div class="form-group col-md-6">
                     <label for="year">Year:</label>
                     <input type="number" name="year" id="year" class="form-control" min="1886"
-                        max="{{ date('Y') }}" oninput="calculateCarAge()">
+                        max="{{ date('Y') }}" oninput="calculateCarAge()"  required>
                     <span id="year_error" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
@@ -47,12 +47,26 @@
 
             <div class="form-group">
                 <label for="used_or_new">Condition:</label>
-                <select name="used_or_new_id" id="used_or_new" class="form-control">
+                <select name="used_or_new_id" id="used_or_new" class="form-control"  required>
                     @foreach ($usedOrNews as $usedOrNew)
                         <option value="{{ $usedOrNew->id }}">{{ $usedOrNew->name }}</option>
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="state">State:</label>
+                <select name="state_id" id="state" class="form-control"
+                    onchange="showOtherField('state', 'other_state')">
+                    @foreach ($state as $st)
+                        <option value="{{ $st->id }}">{{ $st->name }}</option>
+                    @endforeach
+                    <option value="other">Other</option>
+                </select>
+                <input type="text" name="other_state" id="other_state" class="form-control mt-3" style="display:none;"
+                    placeholder="Enter state">
+            </div>
+
 
             <div class="form-group">
                 <label for="transmission">Transmission:</label>
@@ -99,8 +113,8 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="seats">Number of Seats:</label>
-                    <input type="number" name="seats" id="seats" class="form-control" min="1" max="11"
-                        oninput="validateDoorsAndSeats()">
+                    <input type="number" name="seats" id="seats" class="form-control" min="1"
+                        max="11" oninput="validateDoorsAndSeats()">
                     <span id="seats_error" class="text-danger"></span>
                 </div>
 

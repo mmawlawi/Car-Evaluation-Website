@@ -11,6 +11,7 @@ use App\Models\Transmission;
 use App\Models\DriveType;
 use App\Models\FuelType;
 use App\Models\BodyType;
+use App\Models\State;
 
 class CarController extends Controller
 {
@@ -23,29 +24,50 @@ class CarController extends Controller
         $driveTypes = DriveType::all();
         $fuelTypes = FuelType::all();
         $bodyTypes = BodyType::all();
-        return view('sell_your_car', compact('brands', 'models', 'usedOrNews', 'transmissions', 'driveTypes', 'fuelTypes', 'bodyTypes'));
+        $state = State::all();
+        return view('sell_your_car', compact('brands', 'models', 'usedOrNews', 'transmissions', 'driveTypes', 'fuelTypes', 'bodyTypes', 'state'));
     }
 
     public function submitYourCar(Request $request)
     {
         $validatedData = $request->validate([
-            'brand_id' => 'nullable|integer|exists:brands,id', // This can be nullable if 'other' is chosen
-            'model_id' => 'nullable|integer|exists:models,id', // This can be nullable if 'other' is chosen
+            'brand_id' => 'nullable|integer|exists:brand,id',
+            'model_id' => 'nullable|integer|exists:model,id',
             'other_brand' => 'required_if:brand_id,other|string|max:255',
             'other_model' => 'required_if:model_id,other|string|max:255',
             'year' => 'required|integer|min:1886|max:' . date('Y'),
-            'used_or_new_id' => 'required|integer|exists:used_or_news,id',
-            'transmission_id' => 'required|integer|exists:transmissions,id',
-            'drivetype_id' => 'required|integer|exists:drivetypes,id',
-            'fueltype_id' => 'required|integer|exists:fueltypes,id',
-            'bodytype_id' => 'required|integer|exists:bodytypes,id',
-            'doors' => 'required|integer|min:1|max:5',
-            'seats' => 'required|integer|min:1|max:9',
-            'engine_l' => 'required|numeric',
-            'fuelconsumption' => 'required|numeric',
-            'kilometers' => 'required|integer|min:0',
+            'used_or_new_id' => 'required|integer|exists:used_or_new,id',
+            'transmission_id' => 'nullable|integer|exists:transmission,id',
+            'drivetype_id' => 'nullable|integer|exists:drivetype,id',
+            'fueltype_id' => 'nullable|integer|exists:fueltype,id',
+            'bodytype_id' => 'nullable|integer|exists:bodytype,id',
+            'doors' => 'nullable|integer|min:1|max:5',
+            'seats' => 'nullable|integer|min:1|max:9',
+            'engine_l' => 'nullable|numeric',
+            'fuelconsumption' => 'nullable|numeric',
+            'kilometers' => 'nullable|integer|min:0',
+            'state_id' => 'nullable|integer|exists:state,id',
         ]);
+
+        $car = new Car();
+        $car->brand_id = $validatedData['brand_id'] ?? null;
+        $car->model_id = $validatedData['model_id'] ?? null;
+        $car->year = $validatedData['year'];
+        $car->used_or_new_id = $validatedData['used_or_new_id'];
+        $car->transmission_id = $validatedData['transmission_id'] ?? null;
+        $car->drivetype_id = $validatedData['drivetype_id'] ?? null;
+        $car->fueltype_id = $validatedData['fueltype_id'] ?? null;
+        $car->fuelconsumption = $validatedData['fuelconsumption'] ?? null;
+        $car->kilometers = $validatedData['kilometers'] ?? null;
+        $car->bodytype_id = $validatedData['bodytype_id'] ?? null;
+        $car->doors = $validatedData['doors'] ?? null;
+        $car->seats = $validatedData['seats'] ?? null;
+        $car->engine_l = $validatedData['engine_l'] ?? null;
+        $car->state_id = $validatedData['state_id'] ?? null;
+
+        $car->save(); // This will insert the new car record into the database
     }
+
 
 
     public function featured()
