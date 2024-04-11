@@ -77,7 +77,7 @@ class Cars extends Seeder
             $newcar->doors =  (int)$rowData['Doors'];
             $newcar->seats =  (int)$rowData['Seats'];
             $newcar->price =  (int)$rowData['Price'];
-            $newcar->engine_l =  (int)$rowData['EngineL'];
+            $newcar->engine_l =  (float)$rowData['EngineL'];
             
             $newcar->save();
         }
