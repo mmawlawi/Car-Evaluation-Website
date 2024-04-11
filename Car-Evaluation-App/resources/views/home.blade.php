@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="car-details-footer">
                                         <p class="car-kilometers">Miles: {{ $car->kilometers }}</p>
-                                        <p class="car-price">Price: {{ $car->price }}</p>
+                                        <p class="car-price">Price: ${{ number_format($car->price, 2) }}</p>
                                     </div>
                                 </div>
                                 <div class="discover-car-btn-div">
