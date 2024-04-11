@@ -26,7 +26,7 @@
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="car-details-footer">
-                                        <p class="car-kilometers">Kilometers: {{ $car->kilometers }}</p>
+                                        <p class="car-kilometers">Miles: {{ $car->kilometers }}</p>
                                         <p class="car-price">Price: {{ $car->price }}</p>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
             <section id="contact-us-section" class="contact-us">
                 <div class="contact-container">
                     <h2>Contact Us</h2>
-                    <form action="#" method="POST">
+                    <form action="{{ route('send-mail') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Your Name</label>
