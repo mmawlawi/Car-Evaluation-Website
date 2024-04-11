@@ -64,20 +64,21 @@
                     </div>
                     
                 </section>
+                <hr class="separator">
                 <section id="testimonials-section" class="testimonials">
                     <div class="container">
                         <h2>What Our Customers Say</h2>
                         <div class="testimonials-slider">
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"I had an amazing experience purchasing my new car through [Dealership Name]. The staff was incredibly helpful, and the process was seamless and efficient. Highly recommend!"</p>
+                                <p class="testimonial-text">"I had an amazing experience purchasing my new car through <em>CarVolution</em>. The staff was incredibly helpful, and the process was seamless and efficient. Highly recommend!"</p>
                                 <h3 class="customer-name">- John Doe</h3>
                             </div>
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"Finding my dream car was a breeze thanks to the fantastic team at [Dealership Name]. Their attention to detail and customer service was beyond my expectations."</p>
+                                <p class="testimonial-text">"Finding my dream car was a breeze thanks to the fantastic team at <em>CarVolution</em>. Their attention to detail and customer service was beyond my expectations."</p>
                                 <h3 class="customer-name">- Jane Smith</h3>
                             </div>
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"The selection and pricing at [Dealership Name] were unmatched. I felt valued as a customer and am thrilled with my purchase."</p>
+                                <p class="testimonial-text">"The selection and pricing at <em>CarVolution</em> were unmatched. I felt valued as a customer and am thrilled with my purchase."</p>
                                 <h3 class="customer-name">- Alex Johnson</h3>
                             </div>
                         </div>
@@ -86,7 +87,7 @@
                 
                 
             </div>
-            <hr class="separator">
+            <hr class="separator" id="separator-after-testimonials">
             <section id="contact-us-section" class="contact-us">
                 <div class="contact-container">
                     <h2>Contact Us</h2>
