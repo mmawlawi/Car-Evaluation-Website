@@ -35,24 +35,32 @@
                 <button id="apply-filters-btn">Apply Filters</button>
             </div>
         </aside>
-        <h2>Search Results</h2>
+        <h2 id="searchResultsText">Search Results</h2>
 
         @if ($allCars->isEmpty())
             <p>No cars found matching your search criteria.</p>
         @else
-            <div class="grid">
-                @foreach ($allCars as $car)
-                    <div class="grid-item">
-                        <div class="card">
-                            <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}" alt="Car Image">
-                            <div class="card-body">
-                                <h5>{{ optional($car->model->brand)->name }} {{ optional($car->model)->name }}</h5>
-                                <p><strong>Year:</strong> {{ $car->year }}</p>
-                                <p><strong>Price:</strong> ${{ number_format($car->price, 2) }}</p>
-                                <a href="{{ url('cars/' . $car->id) }}">View Details</a>
+            
+            <div class="listings-grid" id="listings-grid"> 
+                @foreach($allCars as $car)
+                    <div class="car-item">
+                        <div class="car-details">
+                            <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
+                            <div class="car-image">
+                                <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}" alt="Car Image">
+                                <div class="overlay"></div>
+                            </div>
+                            <div class="car-details-footer">
+                                <p class="car-kilometers"><strong>Kilometers: </strong> {{number_format($car->kilometers, 0, '.', '.')}}
+                                </p>
+                                <p class="car-price"><strong>Price: </strong> ${{ number_format($car->price, 2) }}</p>
                             </div>
                         </div>
+                        <div class="discover-car-btn-div">
+                            <button class="discover-car-btn">Discover Car</button>
+                        </div>
                     </div>
+                </a>
                 @endforeach
             </div>
             <div class="pagination">

@@ -22,12 +22,13 @@
                                 <div class="car-details">
                                     <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
                                     <div class="car-image">
-                                        <img src="{{$car->random_photo }}" alt="Car Image">
+                                        <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}" alt="Car Image">
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="car-details-footer">
-                                        <p class="car-kilometers">Miles: {{ $car->kilometers }}</p>
-                                        <p class="car-price">Price: ${{ number_format($car->price, 2) }}</p>
+                                        <p class="car-kilometers"><strong>Kilometers: </strong> {{number_format($car->kilometers, 0, '.', '.')}}
+                                        </p>
+                                        <p class="car-price"><strong>Price: </strong> ${{ number_format($car->price, 2) }}</p>
                                     </div>
                                 </div>
                                 <div class="discover-car-btn-div">
