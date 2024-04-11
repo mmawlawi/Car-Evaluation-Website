@@ -64,6 +64,25 @@
                     </div>
                     
                 </section>
+                <section id="testimonials-section" class="testimonials">
+                    <div class="container">
+                        <h2>What Our Customers Say</h2>
+                        <div class="testimonials-slider">
+                            <div class="testimonial-item">
+                                <p class="testimonial-text">"I had an amazing experience purchasing my new car through [Dealership Name]. The staff was incredibly helpful, and the process was seamless and efficient. Highly recommend!"</p>
+                                <h3 class="customer-name">- John Doe</h3>
+                            </div>
+                            <div class="testimonial-item">
+                                <p class="testimonial-text">"Finding my dream car was a breeze thanks to the fantastic team at [Dealership Name]. Their attention to detail and customer service was beyond my expectations."</p>
+                                <h3 class="customer-name">- Jane Smith</h3>
+                            </div>
+                            <div class="testimonial-item">
+                                <p class="testimonial-text">"The selection and pricing at [Dealership Name] were unmatched. I felt valued as a customer and am thrilled with my purchase."</p>
+                                <h3 class="customer-name">- Alex Johnson</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 
                 
             </div>
