@@ -14,31 +14,6 @@
         </section>
         <div class="main-container">
             <div class="car-display-container">
-                <aside class="sidebar">
-                    <h2>Filter Results</h2>
-                    <div class="filter-options">
-                        <label for="make-filter">Make:</label>
-                        <select id="make-filter">
-                            <option value="all">All Makes</option>
-                            <option value="Toyota">Toyota</option>
-                            <option value="Honda">Honda</option>
-                        </select>
-
-                        <label for="year-filter">Model:</label>
-                        <select id="year-filter">
-                            <option value="all">All Models</option>
-                        </select>
-
-                        <label for="price-filter">Price Range:</label>
-                        <select id="price-filter">
-                            <option value="all">All Prices</option>
-                        </select>
-
-                        <!-- Add more filter options as needed -->
-
-                        <button id="apply-filters-btn">Apply Filters</button>
-                    </div>
-                </aside>
                 <section class="car-listings">
                     <h2 id="featuredListing">Featured Listings</h2>
                     <div class="listings-grid" id="listings-grid"> 
