@@ -6,8 +6,8 @@ body {
     background-color: #f4f4f4;
 }
 
-.container {
-    max-width: 1200px;
+#browseCarsPage {
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
 }
@@ -23,74 +23,131 @@ h2 {
 #searchResultsText{
     margin-bottom: 20px;
 }
-/* Sidebar Styling */
+
+/* Sidebar Enhancements */
 .sidebar {
-    width: 100%;
     background-color: #ffffff;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    margin-left: 30px;
 }
 
 .sidebar h2 {
-    font-size: 20px;
+    font-size: 24px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
-/* Filter Options Styling */
-
-.sidebar {
-    width: 100%;
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Filter Options Styling */
+/* Filter Options Enhancements */
 .filter-options {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .filter-options label {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
 }
 
-.filter-options select {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
+.filter-options select, .filter-options input[type="range"] {
+    width: 100%;
+    padding: 8px;
     border: 1px solid #ccc;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
     color: #333;
+    background-color: #f8f8f8;
 }
 
 .filter-options button {
-    background-color: #EF5A42;
-    color: #fff;
-    padding: 10px 20px;
+    background-color: #EF5A42; /* Green */
+    color: white;
+    padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s;
 }
 
 .filter-options button:hover {
     background-color: #F8B763;
 }
+/* Improved Range Input Styling */
+.filter-options input[type="range"] {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%;
+    height: 12px; /* Increased for better accessibility */
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.filter-options input[type="range"]:hover,
+.filter-options input[type="range"]:focus {
+    opacity: 1;
+}
+
+/* Handle (Slider Thumb) Enhancements */
+.filter-options input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px; /* Increased size for better touch accessibility */
+    height: 24px;
+    background: #EF5A42;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000; /* Added shadow for better visibility */
+}
+
+.filter-options input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #EF5A42;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000;
+}
+
+/* Track Enhancements */
+.filter-options input[type="range"]::-webkit-slider-runnable-track,
+.filter-options input[type="range"]::-moz-range-track {
+    height: 12px;
+    cursor: pointer;
+    background: #F8B763;
+    border-radius: 6px; /* More pronounced radius */
+}
+
+/* Dynamic Tooltip for Slider Thumb */
+.filter-options input[type="range"]::-webkit-slider-thumb::after,
+.filter-options input[type="range"]::-moz-range-thumb::after {
+    content: attr(value); /* Dynamic value display */
+    position: absolute;
+    top: -28px; /* Adjusted for visibility */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.filter-options input[type="range"]:focus::-webkit-slider-thumb::after,
+.filter-options input[type="range"]:focus::-moz-range-thumb::after {
+    display: block;
+}
+
+
 
 #featuredListing {
     margin-bottom: 20px;
@@ -117,6 +174,8 @@ h2 {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
 }
+
+
 
 .car-item {
     background-color: #fff;
@@ -236,31 +295,34 @@ h2 {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .sidebars {
-        width: 100%;
+    .container {
+        flex-direction: column;
     }
 
-    #featuredListing {
-        margin-top: 0;
+    .sidebar {
+        order: -1; 
+        width: 100%;
     }
 
     .filter-options {
         flex-direction: column;
     }
 
-    .filter-options select {
+    .filter-options select, 
+    .filter-options input[type="range"] {
         margin-right: 0;
     }
+    #featuredListing {
+        margin-top: 0;
+    }
+
     .pagination a {
         padding: 3px 8px; 
     }
     .pagination li {
         margin: 0;
     }
-    
-    .sidebar {
-        margin-bottom: 20px;
-    }
+
     .grid {
         grid-template-columns: 1fr;
     }
