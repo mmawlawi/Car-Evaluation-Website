@@ -9,49 +9,64 @@
 <script src="{{ asset('js/browse-cars.js') }}"></script>
 
 @section('content')
-    <div class="container">
+    <div class="container" id="browseCarsPage">
         <aside class="sidebar">
             <h2>Filter Results</h2>
-            <div class="filter-options">
-                <label for="make-filter">Make:</label>
-                <select id="make-filter">
-                    <option value="all">All Makes</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Honda">Honda</option>
-                </select>
+            <form method="GET" action="/filter-cars" id="filters-form">
+                <div class="filter-options">
+                    <label for="make-filter" style="font-size: 18px">Make:</label>
+                    <select id="make-filter"  name="make_filter" onchange="updateModels()">
+                        <option value="">All Makes</option>
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        @endforeach
+                    </select>
 
-                <label for="year-filter">Model:</label>
-                <select id="year-filter">
-                    <option value="all">All Models</option>
-                </select>
+                    <label for="model-filter" style="font-size: 18px">Model:</label>
+                    <select id="model-filter" name="model_filter" disabled>
+                        <option value="">Select Model</option>
+                    </select>
 
-                <label for="price-filter">Price Range:</label>
-                <select id="price-filter">
-                    <option value="all">All Prices</option>
-                </select>
+                    <label for="year-range" style="font-size: 18px"><strong>Year Range:</strong></label>
+                    <span id="year-range-value">{{ $minYear }} - {{ $maxYear }}</span>
+                    <input type="range" id="year-min" name="year_min" min="{{ $minYear }}" max="{{ $maxYear }}"
+                        value="{{ $minYear }}" oninput="updateYearValue()">
+                    <input type="range" id="year-max" name="year_max" min="{{ $minYear }}" max="{{ $maxYear }}"
+                        value="{{ $maxYear }}" oninput="updateYearValue()">
+                    
+                    <label for="price-range" style="font-size: 18px"><strong>Price Range:</strong></label>
+                    <span id="price-range-value">${{ $minPrice }} - ${{ $maxPrice }}</span>
+                    <input type="range" id="price-min" name="price_min" min="{{ $minPrice }}"
+                        max="{{ $maxPrice }}" value="{{ $minPrice }}" step="1000" oninput="updatePriceValue()"> 
+                    <input type="range" id="price-max" name="price_max" min="{{ $minPrice }}"
+                        max="{{ $maxPrice }}" value="{{ $maxPrice }}" step="1000" oninput="updatePriceValue()">
+                    
 
-                <!-- Add more filter options as needed -->
+                    <button type="submit" id="apply-filters-btn">Apply Filters</button>
+                </div>
+            </form>
 
-                <button id="apply-filters-btn">Apply Filters</button>
-            </div>
         </aside>
         <h2 id="searchResultsText">Search Results</h2>
 
         @if ($allCars->isEmpty())
             <p>No cars found matching your search criteria.</p>
         @else
-            
-            <div class="listings-grid" id="listings-grid"> 
-                @foreach($allCars as $car)
+            <div class="listings-grid" id="listings-grid">
+                @foreach ($allCars as $car)
                     <div class="car-item">
                         <div class="car-details">
                             <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
                             <div class="car-image">
-                                <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}" alt="Car Image">
+                                <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}"
+                                    alt="Car Image"
+                                    onerror="this.onerror=null; this.src='{{ asset('images/default-car.jpg') }}';">
+
                                 <div class="overlay"></div>
                             </div>
                             <div class="car-details-footer">
-                                <p class="car-kilometers"><strong>Kilometers: </strong> {{number_format($car->kilometers, 0, '.', '.')}}
+                                <p class="car-kilometers"><strong>Kilometers: </strong>
+                                    {{ number_format($car->kilometers, 0, '.', '.') }}
                                 </p>
                                 <p class="car-price"><strong>Price: </strong> ${{ number_format($car->price, 2) }}</p>
                             </div>
@@ -60,7 +75,7 @@
                             <button class="discover-car-btn">Discover Car</button>
                         </div>
                     </div>
-                </a>
+                    </a>
                 @endforeach
             </div>
             <div class="pagination">

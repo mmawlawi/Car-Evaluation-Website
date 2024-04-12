@@ -87,9 +87,66 @@ class CarController extends Controller
         return view('home', compact('cars'));
     }
 
-    public function browse_cars(){
+    public function browse_cars()
+    {
         $allCars = Car::with('model.brand')->paginate(24);
+        $brands = Brand::select('id', 'name')->distinct()->get();
+        $minYear = Car::min('year');
+        $maxYear = Car::max('year');
+        $minPrice = Car::min('price');
+        $maxPrice = Car::max('price');
 
-        return view('browse-cars', compact('allCars'));
+        return view('browse-cars', compact('allCars', 'brands', 'minYear', 'maxYear', 'minPrice', 'maxPrice'));
     }
+
+
+    public function getModelsByBrand(Request $request, $brandId)
+    {
+        $models = CarModel::whereHas('brand', function ($query) use ($brandId) {
+            $query->where('brand_id', $brandId);
+        })->orderBy('name', 'asc')->get();
+
+        return response()->json($models);
+    }
+
+    public function filterCars(Request $request)
+    {
+        $query = Car::with('model.brand');
+
+        if ($request->filled('make_filter')) {
+            $query->whereHas('model.brand', function ($q) use ($request) {
+                $q->where('id', $request->make_filter);
+            });
+        }
+
+        if ($request->filled('model_filter')) {
+            $query->whereHas('model', function ($q) use ($request) {
+                $q->where('id', $request->model_filter);
+            });
+        }
+
+        if ($request->filled('year_min') && $request->filled('year_max')) {
+            $query->whereBetween('year', [$request->year_min, $request->year_max]);
+        }
+
+        if ($request->filled('price_min') && $request->filled('price_max')) {
+            $query->whereBetween('price', [$request->price_min, $request->price_max]);
+        }
+
+        $allCars = $query->paginate(24);
+
+        // reload other necessary data
+        $brands = Brand::select('id', 'name')->distinct()->get();
+        $minYear = Car::min('year');
+        $maxYear = Car::max('year');
+        $minPrice = Car::min('price');
+        $maxPrice = Car::max('price');
+
+        return view('browse-cars', compact('allCars', 'brands', 'minYear', 'maxYear', 'minPrice', 'maxPrice'));
+    }
+
+
+
+
+
 }
