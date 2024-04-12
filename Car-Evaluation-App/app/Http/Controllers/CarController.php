@@ -92,4 +92,44 @@ class CarController extends Controller
 
         return view('browse-cars', compact('allCars'));
     }
+
+    public function showCarDetails(Car $car) {
+        
+        $brand = $car->brand->name;
+        $model = $car->model->name;
+        $usedOrNew = $car->usedOrNew->name; 
+        $transmission = $car->transmission->name;
+        $drive = $car->driveType->name; 
+        $fuel = $car->fuelType->name;
+        $body = $car->bodyType->name;
+        $state = $car->state->name;
+        $price = $car->price;
+        $year = $car->year;
+        $fuelconsumption = $car->fuelconsumption;
+        $cylinders = $car->cylinders;
+        $kilometers = $car->kilometers;
+        $doors = $car->doors;
+        $seats = $car->seats;
+        $enginesize = $car->engine_l;
+        $carDetails = compact(
+            'brand',
+            'model',
+            'usedOrNew',
+            'transmission',
+            'drive',
+            'fuel',
+            'body',
+            'state',
+            'price',
+            'year',
+            'fuelconsumption',
+            'cylinders',
+            'kilometers',
+            'doors',
+            'seats',
+            'enginesize'
+        );
+
+        return view('car-details' , $carDetails);
+    }
 }

@@ -20,7 +20,7 @@
                         @foreach($cars as $car)
                             <div class="car-item">
                                 <div class="car-details">
-                                    <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
+                                    <h3 id="CarNameText">{{ $car->year }} {{ $car->brand->name }} {{ $car->model->name }}</h3>
                                     <div class="car-image">
                                         <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}" alt="Car Image">
                                         <div class="overlay"></div>
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="discover-car-btn-div">
-                                    <button class="discover-car-btn">Discover Car</button>
+                                    <button class="discover-car-btn" onclick="window.location.href = '{{route('cardetails' , $car)}}'">Discover Car</button>
                                 </div>
                             </div>
                         </a>
