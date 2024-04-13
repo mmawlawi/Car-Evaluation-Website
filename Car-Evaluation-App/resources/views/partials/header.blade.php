@@ -1,7 +1,7 @@
 <script src="{{ asset('js/header.js') }}"></script>
 <header>
     <nav class="container">
-        <a class="logo" href="">
+        <a class="logo" href="{{route('home')}}">
             <span>CAR</span>
             <span>VO</span>
             <span>LU</span>

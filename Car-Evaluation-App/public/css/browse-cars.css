@@ -6,8 +6,8 @@ body {
     background-color: #f4f4f4;
 }
 
-.container {
-    max-width: 1200px;
+#browseCarsPage {
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
 }
@@ -20,82 +20,309 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Grid & Cards */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+#searchResultsText{
+    margin-bottom: 20px;
 }
 
-.grid-item {
-    background: white;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+/* Sidebar Enhancements */
+.sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-left: 30px;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-body {
-    padding: 15px;
-}
-
-.card-body h5 {
-    margin-bottom: 10px;
-    color: #007bff;
-}
-
-.card-body p {
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-}
-
-.card-body a {
-    display: inline-block;
-    margin-top: 10px;
-    text-decoration: none;
-    background: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.card-body a:hover {
-    background: #0056b3;
-}
-
-.pagination li {
-    display: inline;
-    margin-right: 5px;
-}
-
-.pagination li.active span {
+.sidebar h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
     font-weight: bold;
 }
 
-.pagination li a {
+/* Filter Options Enhancements */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.filter-options label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.filter-options select, .filter-options input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+.filter-options button {
+    background-color: #EF5A42; /* Green */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-options button:hover {
+    background-color: #F8B763;
+}
+/* Improved Range Input Styling */
+.filter-options input[type="range"] {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%;
+    height: 12px; /* Increased for better accessibility */
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.filter-options input[type="range"]:hover,
+.filter-options input[type="range"]:focus {
+    opacity: 1;
+}
+
+/* Handle (Slider Thumb) Enhancements */
+.filter-options input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px; /* Increased size for better touch accessibility */
+    height: 24px;
+    background: #EF5A42;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000; /* Added shadow for better visibility */
+}
+
+.filter-options input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #EF5A42;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000;
+}
+
+/* Track Enhancements */
+.filter-options input[type="range"]::-webkit-slider-runnable-track,
+.filter-options input[type="range"]::-moz-range-track {
+    height: 12px;
+    cursor: pointer;
+    background: #F8B763;
+    border-radius: 6px; /* More pronounced radius */
+}
+
+/* Dynamic Tooltip for Slider Thumb */
+.filter-options input[type="range"]::-webkit-slider-thumb::after,
+.filter-options input[type="range"]::-moz-range-thumb::after {
+    content: attr(value); /* Dynamic value display */
+    position: absolute;
+    top: -28px; /* Adjusted for visibility */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.filter-options input[type="range"]:focus::-webkit-slider-thumb::after,
+.filter-options input[type="range"]:focus::-moz-range-thumb::after {
+    display: block;
+}
+
+
+
+#featuredListing {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+
+/* Car Listings Styling */
+.car-listings {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#CarNameText {
+    font-size: 2em;
+    margin: 10px 0;
+    color: #F8B763;
+}
+
+.listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+
+
+.car-item {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.car-item:hover {
+    transform: translateY(-5px);
+}
+
+.car-details {
+    padding-bottom: 15px;
+}
+
+.car-item .car-image {
+    position: relative;
+    overflow: hidden;
+    height: 210px;
+    border-radius: 8px;
+}
+
+.car-item img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.car-item:hover .overlay {
+    opacity: 1;
+}
+
+.car-details-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.car-item p {
+    font-size: 16px;
+    color: #666;
+}
+
+
+.car-kilometers,
+.car-price {
+    margin-bottom: 5px;
+}
+
+
+.discover-car-btn {
+    background-color: #EF5A42;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.discover-car-btn:hover {
+    background-color: #F6A606;
+}
+
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    color: #EF5A42;
+    padding: 8px 16px;
     text-decoration: none;
-    color: blue;
+    transition: color 0.3s;
 }
 
-.pagination li.disabled span,
+.pagination a:hover {
+    color: #F6A606; 
+}
+
+.pagination li.active a {
+    color: #fff;
+    background-color: #F6A606; 
+    border-radius: 5px;
+}
+
 .pagination li.disabled a {
-    color: grey;
+    color: #ccc;
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: -1; 
+        width: 100%;
+    }
+
+    .filter-options {
+        flex-direction: column;
+    }
+
+    .filter-options select, 
+    .filter-options input[type="range"] {
+        margin-right: 0;
+    }
+    #featuredListing {
+        margin-top: 0;
+    }
+
+    .pagination a {
+        padding: 3px 8px; 
+    }
+    .pagination li {
+        margin: 0;
+    }
+
     .grid {
         grid-template-columns: 1fr;
     }

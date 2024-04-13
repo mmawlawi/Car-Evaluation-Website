@@ -14,83 +14,70 @@
         </section>
         <div class="main-container">
             <div class="car-display-container">
-                <aside class="sidebar">
-                    <h2>Filter Results</h2>
-                    <div class="filter-options">
-                        <label for="make-filter">Make:</label>
-                        <select id="make-filter">
-                            <option value="all">All Makes</option>
-                            <option value="Toyota">Toyota</option>
-                            <option value="Honda">Honda</option>
-                        </select>
-
-                        <label for="year-filter">Model:</label>
-                        <select id="year-filter">
-                            <option value="all">All Models</option>
-                        </select>
-
-                        <label for="price-filter">Price Range:</label>
-                        <select id="price-filter">
-                            <option value="all">All Prices</option>
-                        </select>
-
-                        <!-- Add more filter options as needed -->
-
-                        <button id="apply-filters-btn">Apply Filters</button>
-                    </div>
-                </aside>
                 <section class="car-listings">
                     <h2 id="featuredListing">Featured Listings</h2>
-                    <div class="listings-grid" id="listings-grid"> 
-                        @foreach($cars as $car)
+                    <div class="listings-grid" id="listings-grid">
+                        @foreach ($cars as $car)
                             <div class="car-item">
                                 <div class="car-details">
-                                    <h3 id="CarNameText">{{ $car->year }} {{ $car->brand }} {{ $car->model->name }}</h3>
+                                    <h3 id="CarNameText">{{ $car->year }} {{ $car->brand->name }} {{ $car->model->name }}</h3>
                                     <div class="car-image">
-                                        <img src="{{$car->random_photo }}" alt="Car Image">
+                                        <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}"
+                                            alt="Car Image"
+                                            onerror="this.onerror=null; this.src='{{ asset('images/default-car.jpg') }}';">
+
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="car-details-footer">
-                                        <p class="car-kilometers">Kilometers: {{ $car->kilometers }}</p>
-                                        <p class="car-price">Price: {{ $car->price }}</p>
+                                        <p class="car-kilometers"><strong>Kilometers: </strong>
+                                            {{ number_format($car->kilometers, 0, ',', ',') }} km
+                                        </p>
+                                        <p class="car-price"><strong>Price: </strong> ${{ number_format($car->price, 2) }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="discover-car-btn-div">
-                                    <button class="discover-car-btn">Discover Car</button>
+                                    <button class="discover-car-btn" onclick="window.location.href = '{{route('cardetails' , $car)}}'">Discover Car</button>
                                 </div>
                             </div>
-                        </a>
+                            </a>
                         @endforeach
                     </div>
-                    
+
                 </section>
+                <hr class="separator">
                 <section id="testimonials-section" class="testimonials">
                     <div class="container">
                         <h2>What Our Customers Say</h2>
                         <div class="testimonials-slider">
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"I had an amazing experience purchasing my new car through [Dealership Name]. The staff was incredibly helpful, and the process was seamless and efficient. Highly recommend!"</p>
+                                <p class="testimonial-text">"I had an amazing experience purchasing my new car through
+                                    <em>CarVolution</em>. The staff was incredibly helpful, and the process was seamless and
+                                    efficient. Highly recommend!"</p>
                                 <h3 class="customer-name">- John Doe</h3>
                             </div>
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"Finding my dream car was a breeze thanks to the fantastic team at [Dealership Name]. Their attention to detail and customer service was beyond my expectations."</p>
+                                <p class="testimonial-text">"Finding my dream car was a breeze thanks to the fantastic team
+                                    at <em>CarVolution</em>. Their attention to detail and customer service was beyond my
+                                    expectations."</p>
                                 <h3 class="customer-name">- Jane Smith</h3>
                             </div>
                             <div class="testimonial-item">
-                                <p class="testimonial-text">"The selection and pricing at [Dealership Name] were unmatched. I felt valued as a customer and am thrilled with my purchase."</p>
+                                <p class="testimonial-text">"The selection and pricing at <em>CarVolution</em> were
+                                    unmatched. I felt valued as a customer and am thrilled with my purchase."</p>
                                 <h3 class="customer-name">- Alex Johnson</h3>
                             </div>
                         </div>
                     </div>
                 </section>
-                
-                
+
+
             </div>
-            <hr class="separator">
+            <hr class="separator" id="separator-after-testimonials">
             <section id="contact-us-section" class="contact-us">
                 <div class="contact-container">
                     <h2>Contact Us</h2>
-                    <form action="#" method="POST">
+                    <form action="{{ route('send-mail') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Your Name</label>

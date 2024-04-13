@@ -31,6 +31,20 @@ $(document).ready(function () {
         filterAndDisplayCars();
     });
 
+    const testimonials = $('.testimonial-item');
+    let index = -1; 
+
+    function cycleTestimonials() {
+        index = (index + 1) % testimonials.length;
+
+        testimonials.stop(true, true).css('opacity', '0').css('display', 'none');
+        $(testimonials[index]).css('display', 'block').animate({opacity: 1}, 1000);
+    }
+
+    cycleTestimonials();
+
+
+    setInterval(cycleTestimonials, 5000)
     
 });
 
