@@ -65,7 +65,11 @@ class CarController extends Controller
         $car->engine_l = $validatedData['engine_l'] ?? null;
         $car->state_id = $validatedData['state_id'] ?? null;
 
-        $car->save(); // This will insert the new car record into the database
+        // Store the data temporarily in the session
+        $request->session()->put('car_data', $validatedData);
+
+        // Redirect to the predict route, you need to define this route in your web.php
+        return redirect()->route('predict');
     }
 
 
@@ -87,7 +91,8 @@ class CarController extends Controller
         return view('home', compact('cars'));
     }
 
-    public function browse_cars(){
+    public function browse_cars()
+    {
         $allCars = Car::with('model.brand')->paginate(24);
 
         return view('browse-cars', compact('allCars'));
