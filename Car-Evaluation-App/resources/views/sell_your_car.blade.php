@@ -13,7 +13,7 @@
                 <label for="brand">Brand:</label>
                 <select name="brand_id" id="brand" class="form-control"
                     onchange="showOtherField('brand', 'other_brand') ; updateModels()" required>
-                    <option value="" selected></option>
+                    <option value="" selected>Choose a Brand</option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                     @endforeach
@@ -30,6 +30,7 @@
                 <label for="model">Model:</label>
                 <select name="model_id" id="model" class="form-control"
                     onchange="showOtherField('model', 'other_model')">
+                    <option value="" selected>Select a model</option>
                     @foreach ($models as $model)
                         <option value="{{ $model->id }}" brand_id = "{{ $model->brand_id }}">{{ $model->name }}</option>
                     @endforeach
@@ -46,7 +47,7 @@
                 <div class="form-group col-md-6">
                     <label for="year">Year:</label>
                     <input type="number" name="year" id="year" class="form-control" min="1886"
-                        max="{{ date('Y') }}" oninput="calculateCarAge()" required>
+                        max="{{ date('Y') }}" oninput="calculateCarAge()" placeholder="Enter year of manufacture" required>
                     @error('year')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -61,6 +62,7 @@
             <div class="form-group">
                 <label for="used_or_new">Condition:</label>
                 <select name="used_or_new_id" id="used_or_new" class="form-control" required>
+                    <option value="" selected>Select Condition</option>
                     @foreach ($usedOrNews as $usedOrNew)
                         <option value="{{ $usedOrNew->id }}">{{ $usedOrNew->name }}</option>
                     @endforeach
@@ -74,6 +76,7 @@
                 <label for="state">State:</label>
                 <select name="state_id" id="state" class="form-control"
                     onchange="showOtherField('state', 'other_state')">
+                    <option value="" selected>Select State</option>
                     @foreach ($state as $st)
                         <option value="{{ $st->id }}">{{ $st->name }}</option>
                     @endforeach
@@ -90,6 +93,7 @@
             <div class="form-group">
                 <label for="transmission">Transmission:</label>
                 <select name="transmission_id" id="transmission" class="form-control">
+                    <option value="" selected>Select transmission type</option>
                     @foreach ($transmissions as $transmission)
                         <option value="{{ $transmission->id }}">{{ $transmission->name }}</option>
                     @endforeach
@@ -102,6 +106,7 @@
             <div class="form-group">
                 <label for="drivetype">Drive Type:</label>
                 <select name="drivetype_id" id="drivetype" class="form-control">
+                    <option value="">Choose drive type</option>
                     @foreach ($driveTypes as $driveType)
                         <option value="{{ $driveType->id }}">{{ $driveType->name }}</option>
                     @endforeach
@@ -114,6 +119,7 @@
             <div class="form-group">
                 <label for="fueltype">Fuel Type:</label>
                 <select name="fueltype_id" id="fueltype" class="form-control">
+                    <option value="">Choose fuel type</option>
                     @foreach ($fuelTypes as $fuelType)
                         <option value="{{ $fuelType->id }}">{{ $fuelType->name }}</option>
                     @endforeach
@@ -126,6 +132,7 @@
             <div class="form-group">
                 <label for="bodytype">Body Type:</label>
                 <select name="bodytype_id" id="bodytype" class="form-control">
+                    <option value="">Choose body type</option>
                     @foreach ($bodyTypes as $bodyType)
                         <option value="{{ $bodyType->id }}">{{ $bodyType->name }}</option>
                     @endforeach
@@ -139,7 +146,7 @@
                 <div class="form-group col-md-6">
                     <label for="doors">Number of Doors:</label>
                     <input type="number" name="doors" id="doors" class="form-control" min="1"
-                        max="5" oninput="validateDoorsAndSeats()">
+                        max="5" oninput="validateDoorsAndSeats()" placeholder="Enter number of doors (1 to 5)">
                     @error('doors')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -148,7 +155,7 @@
                 <div class="form-group col-md-6">
                     <label for="seats">Number of Seats:</label>
                     <input type="number" name="seats" id="seats" class="form-control" min="1"
-                        max="11" oninput="validateDoorsAndSeats()">
+                        max="11" oninput="validateDoorsAndSeats()"  placeholder="Enter number of seats (1 to 11)">
                     @error('seats')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -160,7 +167,7 @@
             <div class="form-group">
                 <label for="engine_l">Engine Liter:</label>
                 <input type="number" step="0.1" name="engine_l" id="engine_l" class="form-control"
-                    min="0.6" max="8.0" oninput="validateEngineFuelKm()">
+                    min="0.6" max="8.0" oninput="validateEngineFuelKm()" placeholder="Enter engine size in liters (between 0.6 and 0.8)">
                 @error('engine_l')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -170,7 +177,7 @@
             <div class="form-group">
                 <label for="fuelconsumption">Fuel Consumption (L/100km):</label>
                 <input type="number" step="0.1" name="fuelconsumption" id="fuelconsumption" class="form-control"
-                    min="3" max="30" oninput="validateEngineFuelKm()">
+                    min="3" max="30" oninput="validateEngineFuelKm()" placeholder="Enter fuel consumption (between 3 and 30)">
                 @error('fuelconsumption')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -180,7 +187,7 @@
             <div class="form-group">
                 <label for="kilometers">Kilometers:</label>
                 <input type="number" name="kilometers" id="kilometers" class="form-control" min="0"
-                    oninput="validateEngineFuelKm()" required>
+                    oninput="validateEngineFuelKm()" placeholder="Enter number of kilometers driven" required>
                 @error('kilometers')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
