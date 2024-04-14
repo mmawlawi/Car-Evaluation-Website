@@ -178,6 +178,7 @@ class CarController extends Controller
         $enginesize = $car->engine_l;
         $carModelInstance = $car->model;  
         $photolink = $carModelInstance->getRandomPhotoUrl();
+        $seller = $car->user;
         $carDetails = compact(
             'brand',
             'model',
@@ -197,6 +198,16 @@ class CarController extends Controller
             'enginesize',
             'photolink'
         );
+
+        if ($seller) {
+            $carDetails['sellerName'] = $seller->name;
+            $carDetails['sellerEmail'] = $seller->email;
+            $carDetails['sellerPhone'] = $seller->phone_number;
+        } else {
+            $carDetails['sellerName'] = 'N/A';
+            $carDetails['sellerEmail'] = 'N/A';
+            $carDetails['sellerPhone'] = 'N/A';
+        }
 
         return view('car-details', $carDetails);
     }
