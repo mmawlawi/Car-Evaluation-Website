@@ -5,6 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
+use App\Models\Brand;
+use App\Models\CarModel;
+use App\Models\UsedOrNew;
+use App\Models\State;
+use App\Models\Transmission;
+use App\Models\DriveType;
+use App\Models\FuelType;
+use App\Models\BodyType;
 
 class CarPredictionController extends Controller
 {
@@ -12,16 +20,16 @@ class CarPredictionController extends Controller
     {
         // Retrieve the data from the session
         $requestData = $request->session()->get('car_data');
-
+        $predectionData = $this->prepareData($requestData);
         try {
-            $response = Http::post('http://127.0.0.1:5000/predict', $requestData);
+            $response = Http::post('http://127.0.0.1:5000/predict', $predectionData);
 
             if ($response->successful()) {
                 $prediction = $response->json()['prediction'];
                 $missing_fields = $response->json()['missing_fields'];
 
                 // Return the view with the prediction data
-                return view('price_prediction', compact('prediction', 'missing_fields'));
+                return view('price_prediction', ['prediction' => $prediction[0], 'missing_fields' => $missing_fields]);
             } else {
                 return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());
             }
@@ -30,50 +38,43 @@ class CarPredictionController extends Controller
         }
     }
 
-    // public function testPrediction()
-    // {
-    //     // Test data
-    //     $inputData = [
-    //         "Brand" => "Ssangyong",
-    //         "Model" => "Rexton",
-    //         "Car/Suv" => "Sutherland Isuzu Ute",
-    //         "UsedOrNew" => "DEMO",
-    //         "Transmission" => "Automatic",
-    //         "DriveType" => "AWD",
-    //         "FuelType" => "Diesel",
-    //         "FuelConsumption" => 8.7,
-    //         "CylindersinEngine" => 4,
-    //         "BodyType" => "SUV",
-    //         "Doors" => 4,
-    //         "Seats" => 7,
-    //         "EngineL" => 2.2,
-    //         "State" => "NSW"
-    //     ];
-
-    //     try {
-    //         // Make a POST request to the Flask API
-    //         $response = Http::post('http://127.0.0.1:5000/predict', $inputData);
-
-    //         // Check if the request was successful
-    //         if ($response->successful()) {
-    //             // Get the prediction from the response
-    //             $prediction = $response->json()['prediction'];
-    //             $missing_fields = $response->json()['missing_fields'];
-
-    //             // Display the prediction
-    //             return response()->json([
-    //                 'prediction' => $prediction,
-    //                 'missing_fields' => $missing_fields
-    //             ]);
-    //         } else {
-    //             // Handle the case where the request was not successful
-    //             return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());
-    //         }
-    //     } catch (\Exception $e) {
-    //         // Handle exceptions
-    //         return response()->json(['error' => $e->getMessage()], 500);
-    //     }
-    // }
+    private function prepareData($requestData)
+    {
+        $currentYear = date('Y');
+    
+        // Assuming you have methods to get names from IDs or placeholders for these methods
+        $brand = isset($requestData['brand_id']) ? Brand::find($requestData['brand_id'])->name : $requestData['other_brand'];
+        $model = isset($requestData['model_id']) ? CarModel::find($requestData['model_id'])->name : $requestData['other_model'];
+        $usedOrNew = UsedOrNew::find($requestData['used_or_new_id'])->name;
+        $state = State::find($requestData['state_id'])->name;
+        $transmission = Transmission::find($requestData['transmission_id'])->name;
+        $driveType = DriveType::find($requestData['drivetype_id'])->name;
+        $fuelType = FuelType::find($requestData['fueltype_id'])->name;
+        $bodyType = BodyType::find($requestData['bodytype_id'])->name;
+    
+        $carAge = $currentYear - $requestData['year'];
+    
+        return [
+            "Brand" => $brand,
+            "Year" => (float) $requestData['year'],
+            "Model" => $model,
+            "UsedOrNew" => $usedOrNew,
+            "Transmission" => $transmission,
+            "DriveType" => $driveType,
+            "FuelType" => $fuelType,
+            "FuelConsumption" => (float) $requestData['fuelconsumption'],
+            "Kilometres" => (float) $requestData['kilometers'],
+            "BodyType" => $bodyType,
+            "Doors" => (float) $requestData['doors'],
+            "Seats" => (float) $requestData['seats'],
+            "EngineL" => (float) $requestData['engine_l'],
+            "CarAge" => (float) $carAge,
+            "State" => $state
+        ];
+        //"Car/Suv"
+        //"CylindersinEngine"
+    }
+    
 
     public function getFeatureImportance()
     {

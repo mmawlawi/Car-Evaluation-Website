@@ -29,12 +29,12 @@ class CarController extends Controller
     }
 
     public function submitYourCar(Request $request)
-    {;
+    {
         $validatedData = $request->validate([
             'brand_id' => 'nullable|integer|exists:brand,id',
             'model_id' => 'nullable|integer|exists:model,id',
-            'other_brand' => 'required_if:brand_id,other|string|max:255',
-            'other_model' => 'required_if:model_id,other|string|max:255',
+            'other_brand' => 'nullable|string|max:255|required_if:brand_id,other',
+            'other_model' => 'nullable|string|max:255|required_if:model_id,other',
             'year' => 'required|integer|min:1886|max:' . date('Y'),
             'used_or_new_id' => 'required|integer|exists:used_or_new,id',
             'state_id' => 'nullable|integer|exists:state,id',
@@ -67,7 +67,6 @@ class CarController extends Controller
 
         // Store the data temporarily in the session
         $request->session()->put('car_data', $validatedData);
-        dd('reached');
         // Redirect to the predict route, you need to define this route in your web.php
         return redirect()->route('predict');
     }
@@ -154,13 +153,14 @@ class CarController extends Controller
 
 
 
-    public function showCarDetails(Car $car) {
-        
+    public function showCarDetails(Car $car)
+    {
+
         $brand = $car->brand->name;
         $model = $car->model->name;
-        $usedOrNew = $car->usedOrNew->name; 
+        $usedOrNew = $car->usedOrNew->name;
         $transmission = $car->transmission->name;
-        $drive = $car->driveType->name; 
+        $drive = $car->driveType->name;
         $fuel = $car->fuelType->name;
         $body = $car->bodyType->name;
         $state = $car->state->name;
@@ -191,6 +191,6 @@ class CarController extends Controller
             'enginesize'
         );
 
-        return view('car-details' , $carDetails);
+        return view('car-details', $carDetails);
     }
 }
