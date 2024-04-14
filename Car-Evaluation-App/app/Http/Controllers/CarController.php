@@ -29,7 +29,7 @@ class CarController extends Controller
     }
 
     public function submitYourCar(Request $request)
-    {
+    {;
         $validatedData = $request->validate([
             'brand_id' => 'nullable|integer|exists:brand,id',
             'model_id' => 'nullable|integer|exists:model,id',
@@ -37,6 +37,7 @@ class CarController extends Controller
             'other_model' => 'required_if:model_id,other|string|max:255',
             'year' => 'required|integer|min:1886|max:' . date('Y'),
             'used_or_new_id' => 'required|integer|exists:used_or_new,id',
+            'state_id' => 'nullable|integer|exists:state,id',
             'transmission_id' => 'nullable|integer|exists:transmission,id',
             'drivetype_id' => 'nullable|integer|exists:drivetype,id',
             'fueltype_id' => 'nullable|integer|exists:fueltype,id',
@@ -45,8 +46,7 @@ class CarController extends Controller
             'seats' => 'nullable|integer|min:1|max:9',
             'engine_l' => 'nullable|numeric',
             'fuelconsumption' => 'nullable|numeric',
-            'kilometers' => 'nullable|integer|min:0',
-            'state_id' => 'nullable|integer|exists:state,id',
+            'kilometers' => 'required|integer|min:0',
         ]);
 
         $car = new Car();
@@ -65,7 +65,11 @@ class CarController extends Controller
         $car->engine_l = $validatedData['engine_l'] ?? null;
         $car->state_id = $validatedData['state_id'] ?? null;
 
-        $car->save(); // This will insert the new car record into the database
+        // Store the data temporarily in the session
+        $request->session()->put('car_data', $validatedData);
+        dd('reached');
+        // Redirect to the predict route, you need to define this route in your web.php
+        return redirect()->route('predict');
     }
 
 

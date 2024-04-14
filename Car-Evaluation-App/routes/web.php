@@ -22,9 +22,9 @@ use App\Http\Controllers\SearchController;
 Route::get('/', [CarController::class, 'featured'])->name('home');
 
 
-Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
+// Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
 
-Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
+// Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
 
 Route::get('/feature-importance', [CarPredictionController::class, 'getFeatureImportance']);
 Route::get('/feature-importance-graph', [CarPredictionController::class, 'getFeatureImportanceGraph']);
@@ -32,9 +32,10 @@ Route::get('/feature-importance-graph', [CarPredictionController::class, 'getFea
 Route::get('/sell-your-car', [CarController::class, 'sellYourCar'])->name('sell-your-car');
 Route::post('/submit-your-car', [CarController::class, 'submitYourCar'])->name('submit-your-car');
 Route::get('/cars', [CarController::class, 'browse_cars'])->name('browse-cars');
+Route::get('/predict', [CarPredictionController::class, 'predict'])->name('predict');
+
 Route::get('/models/{brandId}',  [CarController::class, 'getModelsByBrand']);
 Route::get('/filter-cars', [CarController::class, 'filterCars']);
-
 
 Route::get('/search', [SearchController::class, 'search'])->name('search-cars');
 

@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_number',
         'password',
     ];
 
@@ -42,4 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function generatePhoneNumber()
+    {
+        $numbers = '0123456789';
+        $areaCode = substr(str_shuffle($numbers), 0, 3);
+        $firstPart = substr(str_shuffle($numbers), 0, 3);
+        $secondPart = substr(str_shuffle($numbers), 0, 4);
+
+        return '(' . $areaCode . ') ' . $firstPart . '-' . $secondPart;
+    }
 }

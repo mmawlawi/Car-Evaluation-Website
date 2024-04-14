@@ -26,6 +26,7 @@ class Car extends Model
         'price',
         'engine_l',
         'state_id',
+        'user_id',
     ];
 
     public $timestamps = false;
@@ -53,22 +54,28 @@ class Car extends Model
 
     public function driveType()
     {
-        return $this->belongsTo(Drivetype::class , 'drivetype_id' , 'id');
+        return $this->belongsTo(Drivetype::class, 'drivetype_id', 'id');
     }
 
     public function fuelType()
     {
-        return $this->belongsTo(FuelType::class , 'fueltype_id' , 'id');
+        return $this->belongsTo(FuelType::class, 'fueltype_id', 'id');
     }
 
     public function bodyType()
     {
-        return $this->belongsTo(BodyType::class , 'bodytype_id' , 'id');
+        return $this->belongsTo(BodyType::class, 'bodytype_id', 'id');
     }
 
     public function state()
     {
         return $this->belongsTo(State::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 }
