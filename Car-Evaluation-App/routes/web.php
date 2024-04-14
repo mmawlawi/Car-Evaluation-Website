@@ -32,9 +32,10 @@ Route::get('/feature-importance-graph', [CarPredictionController::class, 'getFea
 Route::get('/sell-your-car', [CarController::class, 'sellYourCar'])->name('sell-your-car');
 Route::post('/submit-your-car', [CarController::class, 'submitYourCar'])->name('submit-your-car');
 Route::get('/cars', [CarController::class, 'browse_cars'])->name('browse-cars');
+Route::get('/predict', [CarPredictionController::class, 'predict'])->name('predict');
+
 Route::get('/models/{brandId}',  [CarController::class, 'getModelsByBrand']);
 Route::get('/filter-cars', [CarController::class, 'filterCars']);
-Route::get('/predict', [CarPredictionController::class, 'predict'])->name('predict');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search-cars');
 

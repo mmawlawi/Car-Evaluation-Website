@@ -88,21 +88,28 @@ class CarPredictionController extends Controller
 
     public function getFeatureImportanceGraph()
     {
-        $response = Http::get('http://127.0.0.1:5000/feature-importance-graph');
-
-        if ($response->successful()) {
-            // The response should be the raw image data
-            $imageData = $response->body();
-
-            // Store the image data as a temporary file to serve it to the view
-            $tempImagePath = storage_path('app/public/feature_importance_graph.png');
-            file_put_contents($tempImagePath, $imageData);
-
-            // Return a view and include the path to the temporary image
-            return view('feature-importance', ['imagePath' => 'storage/feature_importance_graph.png']);
-        } else {
-            // Handle errors, such as by displaying an error message
-            return back()->with('error', 'Failed to fetch the feature importance graph.');
+        // Define the path where the image is stored
+        $tempImagePath = storage_path('app/public/feature_importance_graph.png');
+    
+        // Check if the image already exists
+        if (!file_exists($tempImagePath)) {
+            // If the image does not exist, fetch it from the server
+            $response = Http::get('http://127.0.0.1:5000/feature-importance-graph');
+    
+            if ($response->successful()) {
+                // The response should be the raw image data
+                $imageData = $response->body();
+    
+                // Store the image data as a temporary file to serve it to the view
+                file_put_contents($tempImagePath, $imageData);
+            } else {
+                // Handle errors, such as by displaying an error message
+                return back()->with('error', 'Failed to fetch the feature importance graph.');
+            }
         }
+    
+        // Whether fetched new or existing, return a view and include the path to the temporary image
+        return view('feature-importance', ['imagePath' => 'storage/feature_importance_graph.png']);
     }
+    
 }
