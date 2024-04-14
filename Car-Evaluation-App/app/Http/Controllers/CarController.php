@@ -148,11 +148,6 @@ class CarController extends Controller
         return view('browse-cars', compact('allCars', 'brands', 'minYear', 'maxYear', 'minPrice', 'maxPrice'));
     }
 
-
-
-
-
-
     public function showCarDetails(Car $car)
     {
 
@@ -172,6 +167,7 @@ class CarController extends Controller
         $doors = $car->doors;
         $seats = $car->seats;
         $enginesize = $car->engine_l;
+        $photolink = CarModel::where('id' , $car->model)->first->photo_link_1;
         $carDetails = compact(
             'brand',
             'model',
@@ -188,7 +184,8 @@ class CarController extends Controller
             'kilometers',
             'doors',
             'seats',
-            'enginesize'
+            'enginesize',
+            'photolink'
         );
 
         return view('car-details', $carDetails);

@@ -1,0 +1,38 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.car-details {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.car-details img {
+    width: auto;
+    height: auto;
+    margin-right: 20px;
+}
+
+.car-info {
+    flex: 1;
+}
+
+.car-info p {
+    margin: 5px 0;
+}
+
+.price {
+    margin-top: 20px;
+}
+
+.price h3 {
+    font-size: 18px;
+    margin: 0;
+}
