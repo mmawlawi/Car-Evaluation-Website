@@ -19,8 +19,8 @@
             <li><a href="{{route('browse-cars')}}">Browse Cars</a></li>
             <li><a href="{{ route('sell-your-car') }}">Sell Your Car</a></li>
             <li><a id="contact-us" href="{{ route('home') }}#contact-us-section">Contact Us</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
         </ul>
     </nav>
 </header>

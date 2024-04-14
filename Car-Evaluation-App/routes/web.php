@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarPredictionController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::get('/predict/confidence-interval', [CarPredictionController::class, 'get
 Route::get('/predict/feature-importance', [CarPredictionController::class, 'getFeatureImportance']);
 Route::get('/predict/feature-importance-graph', [CarPredictionController::class, 'getFeatureImportanceGraph']);
 
+Route::post('/submit-price', [Controller::class, 'submitPrice'])->name('submit-price');
 
 Route::get('/models/{brandId}',  [CarController::class, 'getModelsByBrand']);
 Route::get('/filter-cars', [CarController::class, 'filterCars']);
