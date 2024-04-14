@@ -9,10 +9,10 @@
 <script src="{{ asset('js/browse-cars.js') }}"></script>
 
 @section('content')
-    <div class="container">
+    <div class="container" id="carDetailsContainer">
     <h1>{{ $model }}</h1>
     <div class="car-details">
-        <img src="{{ $photo_link ?? asset('images/default-car.jpg') }}" alt="Car Image">
+        <img src="{{ $photolink ?? asset('images/default-car.jpg') }}" alt="Car Image">
         <div class="car-info">
             <p><strong>Brand:</strong> {{ $brand }}</p>
             <p><strong>Year:</strong> {{ $year }}</p>
