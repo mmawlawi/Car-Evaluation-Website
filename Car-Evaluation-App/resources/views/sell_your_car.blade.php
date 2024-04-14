@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="brand">Brand:</label>
                 <select name="brand_id" id="brand" class="form-control"
-                    onchange="showOtherField('brand', 'other_brand') ; updateModels()" required>
+                    onchange="updateModels() ; showOtherField('brand', 'other_brand')" required>
                     <option value="" selected>Choose a Brand</option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -34,7 +34,7 @@
                     @foreach ($models as $model)
                         <option value="{{ $model->id }}" brand_id = "{{ $model->brand_id }}">{{ $model->name }}</option>
                     @endforeach
-                    <option value="other">Other</option>
+                    <option value="other" brand_id = "Other">Other</option>
                 </select>
                 @error('model_id')
                     <div class="alert alert-danger">{{ $message }}</div>

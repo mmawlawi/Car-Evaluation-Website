@@ -19,7 +19,7 @@ function updateModels() {
         var model = options[i];
         var model_brand_id = model.getAttribute('brand_id');
         console.log(brand_id + " " + model_brand_id);
-        if (brand_id === model_brand_id || brand_id === 'other') {
+        if (brand_id === model_brand_id || model_brand_id === 'Other') {
             model.style.display = 'block';
             if (first) {
                 model.selected = true;
@@ -28,7 +28,10 @@ function updateModels() {
         } else {
             model.style.display = 'none';
         }
+
+        showOtherField('model', 'other_model');
     }
+
 
 }
 
