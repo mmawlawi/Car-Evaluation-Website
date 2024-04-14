@@ -117,6 +117,10 @@ class CarPredictionController extends Controller
             $data["FuelConsumption"] = (float) $requestData['fuelconsumption'];
         }
 
+        if (isset($requestData['cylinders'])) {
+            $data["CylindersinEngine"] = (float) $requestData['cylinders'];
+        }
+
         if (isset($requestData['kilometers'])) {
             $data["Kilometres"] = (float) $requestData['kilometers'];
         }

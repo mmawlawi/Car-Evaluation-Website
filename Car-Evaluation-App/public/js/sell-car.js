@@ -81,6 +81,21 @@ function validateDoorsAndSeats() {
     }
 }
 
+function validateCylinders(){
+    const cylindersInput = document.getElementById('cylinders');
+    const cylindersError = document.getElementById('cylinders_error');
+
+    const cylinders = parseInt(cylindersInput.value);
+
+    if (cylinders < 1 || cylinders > 12) {
+        cylindersError.textContent = 'Cylinders must be between 1 and 12.';
+        cylindersError.style.display = 'block';
+    } else {
+        cylindersError.style.display = 'none';
+        cylindersError.textContent = '';
+    }
+}
+
 function validateEngineFuelKm() {
     const engineInput = document.getElementById('engine_l');
     const fuelInput = document.getElementById('fuelconsumption');

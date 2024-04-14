@@ -43,9 +43,10 @@ class CarController extends Controller
             'fueltype_id' => 'nullable|integer|exists:fueltype,id',
             'bodytype_id' => 'nullable|integer|exists:bodytype,id',
             'doors' => 'nullable|integer|min:1|max:5',
-            'seats' => 'nullable|integer|min:1|max:9',
-            'engine_l' => 'nullable|numeric',
-            'fuelconsumption' => 'nullable|numeric',
+            'seats' => 'nullable|integer|min:1|max:22',
+            'cylinders' => 'nullable|integer|min:1|max:12',
+            'engine_l' => 'nullable|numeric|min:0|max:8',
+            'fuelconsumption' => 'nullable|numeric|min:3|max:30',
             'kilometers' => 'required|integer|min:0',
         ]);
 
@@ -62,6 +63,7 @@ class CarController extends Controller
         $car->bodytype_id = $validatedData['bodytype_id'] ?? null;
         $car->doors = $validatedData['doors'] ?? null;
         $car->seats = $validatedData['seats'] ?? null;
+        $car->cylinders = $validatedData['cylinders'] ?? null;
         $car->engine_l = $validatedData['engine_l'] ?? null;
         $car->state_id = $validatedData['state_id'] ?? null;
 

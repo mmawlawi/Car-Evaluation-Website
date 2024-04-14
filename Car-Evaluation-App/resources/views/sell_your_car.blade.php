@@ -155,7 +155,7 @@
                 <div class="form-group col-md-6">
                     <label for="seats">Number of Seats:</label>
                     <input type="number" name="seats" id="seats" class="form-control" min="1"
-                        max="11" oninput="validateDoorsAndSeats()"  placeholder="Enter number of seats (1 to 11)">
+                        max="22" oninput="validateDoorsAndSeats()"  placeholder="Enter number of seats (1 to 22)">
                     @error('seats')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -165,9 +165,19 @@
             </div>
 
             <div class="form-group">
+                <label for="cylinders">Cylinders:</label>
+                <input type="number" name="cylinders" id="cylinders" class="form-control"
+                    min="1" max="12" oninput="validateCylinders()" placeholder="Enter number of cylinders (between 1 and 12)">
+                @error('cylinders')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <span id="cylinders_error" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label for="engine_l">Engine Liter:</label>
                 <input type="number" step="0.1" name="engine_l" id="engine_l" class="form-control"
-                    min="0.6" max="8.0" oninput="validateEngineFuelKm()" placeholder="Enter engine size in liters (between 0.6 and 0.8)">
+                    min="0.6" max="8.0" oninput="validateEngineFuelKm()" placeholder="Enter engine size in liters (between 0.6 and 8.0)">
                 @error('engine_l')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
