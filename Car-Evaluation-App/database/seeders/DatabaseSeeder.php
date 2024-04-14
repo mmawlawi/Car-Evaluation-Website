@@ -8,6 +8,8 @@ use Database\Seeders\Attributes;
 use Database\Seeders\Cars;
 use Database\Seeders\Images;
 use Database\Seeders\OtherAttributes;
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\AssignUsersToCarsSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Attributes::class);
         $this->call(Cars::class);
         $this->call(Images::class);
-        
+        $this->call(UsersTableSeeder::class);
+        $this->call(AssignUsersToCarsSeeder::class);
     }
 }
