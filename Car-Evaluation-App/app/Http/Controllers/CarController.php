@@ -99,6 +99,10 @@ class CarController extends Controller
         $minPrice = Car::min('price');
         $maxPrice = Car::max('price');
 
+        foreach ($allCars as $car) {
+            $car->random_photo_url = $car->model->getRandomPhotoUrl();
+        }
+
         return view('browse-cars', compact('allCars', 'brands', 'minYear', 'maxYear', 'minPrice', 'maxPrice'));
     }
 
@@ -137,6 +141,9 @@ class CarController extends Controller
         }
 
         $allCars = $query->paginate(24);
+        foreach ($allCars as $car) {
+            $car->random_photo_url = $car->model->getRandomPhotoUrl();
+        }
 
         // reload other necessary data
         $brands = Brand::select('id', 'name')->distinct()->get();
@@ -167,7 +174,8 @@ class CarController extends Controller
         $doors = $car->doors;
         $seats = $car->seats;
         $enginesize = $car->engine_l;
-        $photolink = CarModel::where('id' , $car->model)->first->photo_link_1;
+        $carModelInstance = $car->model;  
+        $photolink = $carModelInstance->getRandomPhotoUrl();
         $carDetails = compact(
             'brand',
             'model',

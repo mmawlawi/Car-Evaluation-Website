@@ -58,7 +58,7 @@
                         <div class="car-details">
                             <h3 id="CarNameText">{{ $car->year }} {{ $car->brand->name }} {{ $car->model->name }}</h3>
                             <div class="car-image">
-                                <img src="{{ $car->model->photo_link_1 ?? asset('images/default-car.jpg') }}"
+                                <img src="{{  $car->random_photo_url  ?? asset('images/default-car.jpg') }}"
                                     alt="Car Image"
                                     onerror="this.onerror=null; this.src='{{ asset('images/default-car.jpg') }}';">
 

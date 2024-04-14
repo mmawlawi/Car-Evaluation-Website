@@ -20,4 +20,12 @@ class CarModel extends Model
     {
         return $this->belongsTo('App\Models\Brand', 'brand_id');
     }
+    public function getRandomPhotoUrl()
+    {
+        $photos = array_filter([$this->photo_link_1, $this->photo_link_2, $this->photo_link_3]);
+        if (empty($photos)) {
+            return null; 
+        }
+        return $photos[array_rand($photos)];
+    }
 }
