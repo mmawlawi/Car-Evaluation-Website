@@ -170,3 +170,19 @@
 
     }
 }
+
+.contact-seller-action {
+    background-color: #EF5A42;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width:49%;
+}
+.contact-seller-action:hover {
+    background-color: #F8B763;
+
+}

@@ -77,18 +77,45 @@
     </div>
 
     <div id="contactSellerModal" class="modal">
-        <div class="modal-content" id="contactSellerModalContent">
-            <span class="close-button">&times;</span>
-            <h2>Contact Seller</h2>
-            @if($sellerName !== 'N/A')
-            <p><strong>Name:</strong> {{ $sellerName }}</p>
-            <p><strong>Email:</strong> {{ $sellerEmail }}</p>
-            <p><strong>Phone:</strong> {{ $sellerPhone }}</p>
-            @else
-            <p>This car does not currently have a seller listed.</p>
-            @endif
+    <div class="modal-content" id="contactSellerModalContent">
+        <span class="close-button">&times;</span>
+        @if($sellerName !== 'N/A')
+        <h2><strong>{{ $sellerName }} </strong></h2>
+        <div>
+            <a href="mailto:{{ $sellerEmail }}" >
+                <button onclick = "copyToClipboard('{{ $sellerEmail }}' , 'email')" class = "contact-seller-action">Email</button>
+            </a>
+            <a href="tel:{{ $sellerPhone }}" >
+                <button onclick = "copyToClipboard('{{ $sellerPhone }}' , 'phone')" class = "contact-seller-action">Call</button>
+            </a>
+            <p id = "copy-message" style = "display: none;"></p>
+        </div>
+        @else
+        <p>This car does not currently have a seller listed.</p>
+        @endif
         </div>
     </div>
+
+    <script>
+        function copyToClipboard(text , type) {
+            const input = document.createElement('input');
+            input.setAttribute('value', text);
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            const messageElement = document.getElementById('copy-message');
+            if (type === 'email') {
+                messageElement.innerText = 'Email copied to clipboard';
+            } else if (type === 'phone') {
+                messageElement.innerText = 'Phone number copied to clipboard';
+            }
+            messageElement.style.display = 'block';
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 12000);
+            }
+    </script>
     
 
 @endsection
