@@ -7,13 +7,24 @@
     <div class="container mt-5">
         <h1>Car Price Prediction</h1>
         <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
+        @if (!empty($confidenceInterval))
+            <p><strong>Confidence Interval:</strong> {{ number_format($confidenceInterval['lower'], 2) }} -
+                {{ number_format($confidenceInterval['upper'], 2) }}</p>
+        @endif
         @if (!empty($missing_fields))
             <p><strong>Missing Fields:</strong> {{ implode(', ', $missing_fields) }}</p>
         @endif
-        @if (!empty($confidenceInterval))
-            <p><strong>Confidence Interval:</strong> {{ number_format($confidenceInterval['lower'] * 100, 2) }}% -
-                {{ number_format($confidenceInterval['upper'] * 100, 2) }}%</p>
-        @endif
+
+        <form id="priceForm" action="{{ route('submit-price') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="userPrice">Enter Your Price ($):</label>
+                <input type="numeric" class="form-control" id="userPrice" name="userPrice"
+                    value="{{ number_format($prediction ?? 0, 2) }}" required step="0.01">
+                <small id="priceHelp" class="form-text text-muted"></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 
     <div class="container mt-5">
@@ -33,10 +44,7 @@
                 const graphElement = document.getElementById('featureImportanceGraph');
                 if (!graphElement.complete || graphElement.naturalWidth === 0) {
                     fetch('/predict/feature-importance-graph')
-                        .then(response => {
-                            if (response.ok) return response.blob();
-                            throw new Error('Failed to load graph image');
-                        })
+                        .then(response => response.blob())
                         .then(imageBlob => {
                             const imageUrl = URL.createObjectURL(imageBlob);
                             graphElement.src = imageUrl;
@@ -48,7 +56,35 @@
                         });
                 }
             }
+
+            // Price validation
+            const userPriceInput = document.getElementById('userPrice');
+            const priceHelp = document.getElementById('priceHelp');
+            const predictedPrice = parseFloat(userPriceInput.value.replace(/,/g, '')); // remove commas for parsing
+            const confidenceScale = ({{ $confidenceInterval['lower'] ?? 0.85 }} +
+                    {{ $confidenceInterval['upper'] ?? 0.85 }}) /
+                2; // Average of lower and upper confidence percentages
+            const priceRangeFactor = 1 - confidenceScale; // Smaller range when confidence is high
+
+            const lowerPriceRange = predictedPrice - (predictedPrice * priceRangeFactor);
+            const upperPriceRange = predictedPrice + (predictedPrice * priceRangeFactor);
+
+            userPriceInput.addEventListener('input', function() {
+                const userPrice = parseFloat(userPriceInput.value);
+                if (userPrice < lowerPriceRange) {
+                    priceHelp.textContent = 'Price too low. Expected range: $' + lowerPriceRange.toFixed(
+                        2) + ' - $' + upperPriceRange.toFixed(2);
+                    priceHelp.className = 'form-text text-warning';
+                } else if (userPrice > upperPriceRange) {
+                    priceHelp.textContent = 'Price too high. Expected range: $' + lowerPriceRange.toFixed(
+                        2) + ' - $' + upperPriceRange.toFixed(2);
+                    priceHelp.className = 'form-text text-warning';
+                } else {
+                    priceHelp.textContent = 'Price within expected range: $' + lowerPriceRange.toFixed(2) +
+                        ' - $' + upperPriceRange.toFixed(2);
+                    priceHelp.className = 'form-text text-success';
+                }
+            });
         });
     </script>
-
 @endsection

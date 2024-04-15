@@ -23,7 +23,10 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <input type="text" name="other_brand" id="other_brand" class="form-control mt-3" style="display:none;"
-                    placeholder="Enter brand">
+                    value="{{ old('other_brand') }}" placeholder="Enter brand">
+                @error('other_brand')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -40,14 +43,18 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <input type="text" name="other_model" id="other_model" class="form-control mt-3" style="display:none;"
-                    placeholder="Enter model">
+                    value="{{ old('other_model') }}" placeholder="Enter model">
+                @error('other_model')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="year">Year:</label>
                     <input type="number" name="year" id="year" class="form-control" min="1886"
-                        max="{{ date('Y') }}" oninput="calculateCarAge()" placeholder="Enter year of manufacture" required>
+                        max="{{ date('Y') }}" oninput="calculateCarAge()" placeholder="Enter year of manufacture"
+                        required>
                     @error('year')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -155,7 +162,7 @@
                 <div class="form-group col-md-6">
                     <label for="seats">Number of Seats:</label>
                     <input type="number" name="seats" id="seats" class="form-control" min="1"
-                        max="22" oninput="validateDoorsAndSeats()"  placeholder="Enter number of seats (1 to 22)">
+                        max="22" oninput="validateDoorsAndSeats()" placeholder="Enter number of seats (1 to 22)">
                     @error('seats')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -166,8 +173,9 @@
 
             <div class="form-group">
                 <label for="cylinders">Cylinders:</label>
-                <input type="number" name="cylinders" id="cylinders" class="form-control"
-                    min="1" max="12" oninput="validateCylinders()" placeholder="Enter number of cylinders (between 1 and 12)">
+                <input type="number" name="cylinders" id="cylinders" class="form-control" min="1"
+                    max="12" oninput="validateCylinders()"
+                    placeholder="Enter number of cylinders (between 1 and 12)">
                 @error('cylinders')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -177,7 +185,8 @@
             <div class="form-group">
                 <label for="engine_l">Engine Liter:</label>
                 <input type="number" step="0.1" name="engine_l" id="engine_l" class="form-control"
-                    min="0.6" max="8.0" oninput="validateEngineFuelKm()" placeholder="Enter engine size in liters (between 0.6 and 8.0)">
+                    min="0.6" max="8.0" oninput="validateEngineFuelKm()"
+                    placeholder="Enter engine size in liters (between 0.6 and 8.0)">
                 @error('engine_l')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -187,7 +196,8 @@
             <div class="form-group">
                 <label for="fuelconsumption">Fuel Consumption (L/100km):</label>
                 <input type="number" step="0.1" name="fuelconsumption" id="fuelconsumption" class="form-control"
-                    min="3" max="30" oninput="validateEngineFuelKm()" placeholder="Enter fuel consumption (between 3 and 30)">
+                    min="3" max="30" oninput="validateEngineFuelKm()"
+                    placeholder="Enter fuel consumption (between 3 and 30)">
                 @error('fuelconsumption')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror

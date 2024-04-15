@@ -75,8 +75,8 @@ function validateDoorsAndSeats() {
         doorsError.textContent = '';
     }
 
-    if (seats < 1 || seats > 11) {
-        seatsError.textContent = 'Seats must be between 1 and 11.';
+    if (seats < 1 || seats > 22) {
+        seatsError.textContent = 'Seats must be between 1 and 22.';
         seatsError.style.display = 'block';
     } else {
         seatsError.style.display = 'none';

@@ -12,6 +12,8 @@ use App\Models\DriveType;
 use App\Models\FuelType;
 use App\Models\BodyType;
 use App\Models\State;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
@@ -30,11 +32,33 @@ class CarController extends Controller
 
     public function submitYourCar(Request $request)
     {
-        $validatedData = $request->validate([
-            'brand_id' => 'nullable|integer|exists:brand,id',
-            'model_id' => 'nullable|integer|exists:model,id',
-            'other_brand' => 'nullable|string|max:255|required_if:brand_id,other',
-            'other_model' => 'nullable|string|max:255|required_if:model_id,other',
+        $validator = Validator::make($request->all(), [
+            'brand_id' => [
+                'required',
+                Rule::when($request->input('brand_id') !== 'other', [
+                    'integer',
+                    'exists:brand,id'
+                ]),
+            ],
+            'model_id' => [
+                'required',
+                Rule::when($request->input('model_id') !== 'other', [
+                    'integer',
+                    'exists:model,id'
+                ]),
+            ],
+            'other_brand' => [
+                'nullable', 'string', 'max:255',
+                Rule::requiredIf(function () use ($request) {
+                    return $request->brand_id === null || $request->brand_id === 'other';
+                })
+            ],
+            'other_model' => [
+                'nullable', 'string', 'max:255',
+                Rule::requiredIf(function () use ($request) {
+                    return $request->model_id === null || $request->model_id === 'other';
+                })
+            ],
             'year' => 'required|integer|min:1886|max:' . date('Y'),
             'used_or_new_id' => 'required|integer|exists:used_or_new,id',
             'state_id' => 'nullable|integer|exists:state,id',
@@ -50,25 +74,17 @@ class CarController extends Controller
             'kilometers' => 'required|integer|min:0',
         ]);
 
-        $car = new Car();
-        $car->brand_id = $validatedData['brand_id'] ?? null;
-        $car->model_id = $validatedData['model_id'] ?? null;
-        $car->year = $validatedData['year'];
-        $car->used_or_new_id = $validatedData['used_or_new_id'];
-        $car->transmission_id = $validatedData['transmission_id'] ?? null;
-        $car->drivetype_id = $validatedData['drivetype_id'] ?? null;
-        $car->fueltype_id = $validatedData['fueltype_id'] ?? null;
-        $car->fuelconsumption = $validatedData['fuelconsumption'] ?? null;
-        $car->kilometers = $validatedData['kilometers'] ?? null;
-        $car->bodytype_id = $validatedData['bodytype_id'] ?? null;
-        $car->doors = $validatedData['doors'] ?? null;
-        $car->seats = $validatedData['seats'] ?? null;
-        $car->cylinders = $validatedData['cylinders'] ?? null;
-        $car->engine_l = $validatedData['engine_l'] ?? null;
-        $car->state_id = $validatedData['state_id'] ?? null;
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+    
+        // Handle your validated data
+        $car = new Car($validator->validated());
 
         // Store the data temporarily in the session
-        $request->session()->put('car_data', $validatedData);
+        $request->session()->put('car_data', $car);
         // Redirect to the predict route, you need to define this route in your web.php
         return redirect()->route('predict');
     }
