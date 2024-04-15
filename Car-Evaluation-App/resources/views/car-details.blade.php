@@ -78,9 +78,9 @@
 
     <div id="contactSellerModal" class="modal">
     <div class="modal-content" id="contactSellerModalContent">
-        <span class="close-button">&times;</span>
+        <span class="close-button" style="text-align: right;">&times;</span>
         @if($sellerName !== 'N/A')
-        <h2><strong>{{ $sellerName }} </strong></h2>
+        <h2 style="text-align: center;"><strong>{{ $sellerName }} </strong></h2>
         <div>
             <a href="mailto:{{ $sellerEmail }}" >
                 <button onclick = "copyToClipboard('{{ $sellerEmail }}' , 'email')" class = "contact-seller-action">Email</button>
