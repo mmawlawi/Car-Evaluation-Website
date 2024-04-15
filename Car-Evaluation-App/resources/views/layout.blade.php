@@ -28,16 +28,11 @@
         @yield('content')
     </main>
 
-    {{-- <form method="post" action="/test-prediction">
-        @csrf
-        
-        <button type="submit">Submit</button>
-    </form> --}}
+
     
     @include('partials.footer')
 
-    {{-- <script src="{{ asset('js/script.js') }}"></script>
-    @yield('scripts') --}}
+    
 
 </body>
 

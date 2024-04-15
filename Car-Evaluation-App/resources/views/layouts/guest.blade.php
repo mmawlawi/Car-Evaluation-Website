@@ -18,7 +18,13 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <a class="logo" href="{{ route('home') }}">
+                        <span>CAR</span>
+                        <span>VO</span>
+                        <span>LU</span>
+                        <span>TI</span>
+                        <span>ON</span>
+                    </a>
                 </a>
             </div>
 
