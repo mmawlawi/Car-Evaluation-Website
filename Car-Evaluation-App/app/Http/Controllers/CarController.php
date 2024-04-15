@@ -61,7 +61,12 @@ class CarController extends Controller
             ],
             'year' => 'required|integer|min:1886|max:' . date('Y'),
             'used_or_new_id' => 'required|integer|exists:used_or_new,id',
-            'state_id' => 'nullable|integer|exists:state,id',
+            'state_id' => 'nullable',
+            Rule::when($request->input('state_id') !== 'other', [
+                'integer',
+                'exists:brand,id'
+            ]),
+            'other_state' => 'nullable', 'string', 'max:255',
             'transmission_id' => 'nullable|integer|exists:transmission,id',
             'drivetype_id' => 'nullable|integer|exists:drivetype,id',
             'fueltype_id' => 'nullable|integer|exists:fueltype,id',
@@ -79,14 +84,47 @@ class CarController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-    
-        // Handle your validated data
-        $car = new Car($validator->validated());
 
-        // Store the data temporarily in the session
-        $request->session()->put('car_data', $car);
+        $validatedData = $validator->validated();
+        // Store the validated data array directly into the session
+        $request->session()->put('car_data', $validatedData);
+
+        // Extract names for display
+        $displayData = $this->prepareDisplayData($validatedData);
+        $request->session()->put('display_car_data', $displayData);
+        
         // Redirect to the predict route, you need to define this route in your web.php
         return redirect()->route('predict');
+    }
+
+    private function prepareDisplayData($validatedData)
+    {
+        $data = [
+            'Brand' => $validatedData['brand_id'] !== 'other' ? Brand::find($validatedData['brand_id'])->name : ($validatedData['other_brand'] ?? 'N/A'),
+            'Model' => $validatedData['model_id'] !== 'other' ? CarModel::find($validatedData['model_id'])->name : ($validatedData['other_model'] ?? 'N/A'),
+            'Year' => $validatedData['year'],
+            'Used or New' => UsedOrNew::find($validatedData['used_or_new_id'])->name,
+            'State' => $validatedData['state_id'] !== 'other' ? State::find($validatedData['state_id'])->name : ($validatedData['other_state'] ?? 'N/A'),
+            'Transmission' => isset($validatedData['transmission_id']) ? Transmission::find($validatedData['transmission_id'])->name : 'Not specified',
+            'Drive Type' => isset($validatedData['drivetype_id']) ? DriveType::find($validatedData['drivetype_id'])->name : 'Not specified',
+            'Fuel Type' => isset($validatedData['fueltype_id']) ? FuelType::find($validatedData['fueltype_id'])->name : 'Not specified',
+            'Body Type' => isset($validatedData['bodytype_id']) ? BodyType::find($validatedData['bodytype_id'])->name : 'Not specified',
+            'Doors' => $validatedData['doors'] ?? 'Not specified',
+            'Seats' => $validatedData['seats'] ?? 'Not specified',
+            'Cylinders' => $validatedData['cylinders'] ?? 'Not specified',
+            'Engine Liter' => $validatedData['engine_l'] ?? 'Not specified',
+            'Fuel Consumption' => $validatedData['fuelconsumption'] ?? 'Not specified',
+            'Kilometers' => $validatedData['kilometers'],
+        ];
+
+        // Remove any entries from the data array that are 'Not specified' or 'N/A'
+        foreach ($data as $key => $value) {
+            if ($value === 'Not specified' || $value === 'N/A') {
+                unset($data[$key]);
+            }
+        }
+
+        return $data;
     }
 
 
@@ -192,7 +230,7 @@ class CarController extends Controller
         $doors = $car->doors;
         $seats = $car->seats;
         $enginesize = $car->engine_l;
-        $carModelInstance = $car->model;  
+        $carModelInstance = $car->model;
         $photolink = $carModelInstance->getRandomPhotoUrl();
         $seller = $car->user;
         $carDetails = compact(

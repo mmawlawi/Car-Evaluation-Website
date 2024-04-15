@@ -31,7 +31,8 @@ class CarPredictionController extends Controller
                 return view('price_prediction', [
                     'prediction' => $prediction[0],
                     'missing_fields' => $missing_fields,
-                    'confidenceInterval' => $confidence
+                    'confidenceInterval' => $confidence,
+                    'DisplayData' => session('display_car_data')
                 ]);
             } else {
                 return response()->json(['error' => 'Failed to get prediction from Flask API'], $response->status());

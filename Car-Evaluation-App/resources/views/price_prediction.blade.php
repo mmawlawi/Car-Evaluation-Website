@@ -8,13 +8,28 @@
         <h1>Car Price Prediction</h1>
         <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
         @if (!empty($confidenceInterval))
-            <p><strong>Confidence Interval:</strong> {{ number_format($confidenceInterval['lower'], 2) }} -
-                {{ number_format($confidenceInterval['upper'], 2) }}</p>
+            <p><strong>Confidence Interval:</strong>
+                {{ ((number_format($confidenceInterval['lower'] + number_format($confidenceInterval['upper']))) / 2) * 100 }}%
+            </p>
         @endif
         @if (!empty($missing_fields))
             <p><strong>Missing Fields:</strong> {{ implode(', ', $missing_fields) }}</p>
         @endif
 
+        {{-- Displaying Car Details --}}
+        <div class="mt-4 mb-4">
+            <h2>Car Details Confirmation</h2>
+            @if (!empty($DisplayData))
+                <ul>
+                    @foreach ($DisplayData as $key => $value)
+                        <li>{{ ucfirst(str_replace('_', ' ', $key)) }}: {{ $value }}</li>
+                    @endforeach
+                </ul>
+            @else
+                <p>No car details found.</p>
+            @endif
+        </div>
+        
         <form id="priceForm" action="{{ route('submit-price') }}" method="POST">
             @csrf
             <div class="form-group">

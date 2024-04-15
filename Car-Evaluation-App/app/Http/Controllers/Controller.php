@@ -12,34 +12,45 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->only('submitPrice');
+    // }
+
     public function submitPrice(Request $request)
     {
-        // Check if the user is logged in
+        // Check if the user is authenticated
         if (!auth()->check()) {
-            // Redirect to login with a message
-            return redirect()->route('login')->with('status', 'Please log in to submit your price.');
+            // Redirect the user to the login page with a message
+            return redirect()->route('login')->with('status', 'You need to log in to add the car to the marketplace.');
         }
-    
         // Retrieve car data from session
         $carData = $request->session()->get('car_data');
-    
+
         // Ensure there is car data in the session
         if (!$carData) {
             return back()->with('error', 'No car data found. Please submit car details first.');
         }
-    
-        // Add user id to the car data
-        $carData['user_id'] = auth()->id();
-    
-        // Add the price submitted by the user to the car data
-        $carData['price'] = $request->input('userPrice');
-    
+
+        // Validate user price input
+        $validated = $request->validate([
+            'userPrice' => 'required|numeric|min:0' // ensure the price is a number and not negative
+        ]);
+
+        // Add user id and price to the car data
+        $carData = array_merge($carData, [
+            'user_id' => auth()->id(),
+            'price' => $validated['userPrice']
+        ]);
+
         // Create the car in the database
         $car = new Car($carData);
         $car->save();
-    
+
+        // Clear the car data from the session after saving to database
+        $request->session()->forget('car_data');
+
         // Redirect to a confirmation page or somewhere relevant
         return redirect()->route('home')->with('status', 'Car submitted successfully.');
     }
-    
 }
