@@ -194,9 +194,9 @@ class CarPredictionController extends Controller
         $confidenceScore = $providedImportance / $totalImportance;
         $adjustedAccuracy = $baseAccuracy * $confidenceScore;
 
-        return [
-            'lower' => max(0, $adjustedAccuracy - 0.1),
-            'upper' => min(1, $adjustedAccuracy + 0.1)
-        ];
+        $lower =  max(0, $adjustedAccuracy - 0.1);
+        $upper = min(1, $adjustedAccuracy + 0.1);
+        
+        return max(0.85, ($lower + $upper) / 2);
     }
 }

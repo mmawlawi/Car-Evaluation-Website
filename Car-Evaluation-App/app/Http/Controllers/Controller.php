@@ -12,10 +12,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->only('submitPrice');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth')->only('myCars');
+    }
 
     public function submitPrice(Request $request)
     {
@@ -52,5 +52,17 @@ class Controller extends BaseController
 
         // Redirect to a confirmation page or somewhere relevant
         return redirect()->route('home')->with('status', 'Car submitted successfully.');
+    }
+
+    public function myCars()
+    {
+        // Retrieve the authenticated user's ID
+        $userId = auth()->id();
+
+        // Query the Car model to get all cars that belong to the current user
+        $cars = Car::where('user_id', $userId)->get();
+
+        // Return the view with the cars
+        return view('my-cars', compact('cars'));
     }
 }

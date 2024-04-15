@@ -21,7 +21,7 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', [CarController::class, 'featured'])->name('home');
-
+Route::get('/home', [CarController::class, 'featured'])->name('home');
 
 // Route::post('/car-prediction', [CarPredictionController::class, 'predict']);
 // Route::post('/test-prediction', [CarPredictionController::class, 'testPrediction']);
@@ -43,6 +43,8 @@ Route::get('/filter-cars', [CarController::class, 'filterCars']);
 Route::get('/search', [SearchController::class, 'search'])->name('search-cars');
 
 Route::post('/send-mail', [ContactController::class, 'sendMail'])->name('send-mail');
+
+Route::get('/my-cars', [Controller::class, 'myCars'])->name('my-cars');
 
 
 Route::get('/dashboard', function () {
