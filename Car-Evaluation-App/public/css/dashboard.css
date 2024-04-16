@@ -1,0 +1,143 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navigation Bar */
+nav.bg-white {
+    background-color: #EF5A42; /* Red from homepage */
+    color: #ffffff;
+}
+
+nav.bg-white a {
+    color: #ffffff;
+}
+
+nav.bg-white .border-b {
+    border-color: #F8B763; /* Light orange from homepage */
+}
+
+/* Navigation Menu */
+.max-w-7xl {
+    max-width: 1140px; /* Adjusted for wider screens */
+    margin: auto;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex .flex {
+    justify-content: start;
+}
+
+/* Dropdown and Links */
+.dropdown-link, .nav-link {
+    color: #ffffff;
+    padding: 10px 15px;
+    display: block;
+}
+
+.dropdown-link:hover, .nav-link:hover {
+    background-color: #F6A606; /* Hover effect from homepage */
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    right: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #F8B763;
+}
+
+/* Responsive Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger div {
+    background-color: #fff;
+    margin: 5px;
+    height: 3px;
+    width: 25px;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-menu.responsive {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.text-gray-800 {
+    color: #ffffff; /* Adjust for better visibility */
+}
+
+.dark\:text-gray-200 {
+    color: #ffffff;
+}
+
+/* Custom Classes for Additional Styling */
+.x-application-logo {
+    fill: #ffffff; /* Ensure logo matches theme */
+}
+
+/* Button Styling */
+.button {
+    background-color: #EF5A42; /* Consistent button color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #F6A606; /* Hover effect from homepage */
+}
