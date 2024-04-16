@@ -5,6 +5,12 @@
 @section('content')
     <div class="container mt-5" id="myCarsContainer">
         <h1>My Cars</h1>
+        <!-- Display status messages -->
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
         @if ($cars->isEmpty())
             <p>You currently have no cars listed. <a href="{{ route('sell-your-car') }}">Sell your car?</a></p>
         @else
@@ -17,8 +23,13 @@
                         <p>Kilometers: {{ number_format($car->kilometers) }}</p>
                         <p>Price: ${{ number_format($car->price, 2) }}</p>
                         <div>
-                            {{-- <a href="{{ route('edit-car', $car->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('delete-car', $car->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a> --}}
+                            <a href="{{ route('edit-car', $car->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('delete-car', $car->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

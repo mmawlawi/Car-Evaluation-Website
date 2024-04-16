@@ -14,6 +14,7 @@ use App\Models\BodyType;
 use App\Models\State;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class CarController extends Controller
 {
@@ -92,7 +93,7 @@ class CarController extends Controller
         // Extract names for display
         $displayData = $this->prepareDisplayData($validatedData);
         $request->session()->put('display_car_data', $displayData);
-        
+
         // Redirect to the predict route, you need to define this route in your web.php
         return redirect()->route('predict');
     }
@@ -104,7 +105,7 @@ class CarController extends Controller
             'Model' => $validatedData['model_id'] !== 'other' ? CarModel::find($validatedData['model_id'])->name : ($validatedData['other_model'] ?? 'N/A'),
             'Year' => $validatedData['year'],
             'Used or New' => UsedOrNew::find($validatedData['used_or_new_id'])->name,
-            'State' => $validatedData['state_id'] !== 'other' ? State::find($validatedData['state_id'])->name : ($validatedData['other_state'] ?? 'N/A'),
+            'State' => ($validatedData['state_id'] !== 'other' && isset($validatedData['state_id']))? State::find($validatedData['state_id'])->name : ($validatedData['other_state'] ?? 'N/A'),
             'Transmission' => isset($validatedData['transmission_id']) ? Transmission::find($validatedData['transmission_id'])->name : 'Not specified',
             'Drive Type' => isset($validatedData['drivetype_id']) ? DriveType::find($validatedData['drivetype_id'])->name : 'Not specified',
             'Fuel Type' => isset($validatedData['fueltype_id']) ? FuelType::find($validatedData['fueltype_id'])->name : 'Not specified',
@@ -125,6 +126,34 @@ class CarController extends Controller
         }
 
         return $data;
+    }
+
+    public function editCar($carId)
+    {
+        $brands = Brand::orderBy('name', 'asc')->get();
+        $models = CarModel::orderBy('name', 'asc')->get();
+        $usedOrNews = UsedOrNew::all();
+        $transmissions = Transmission::all();
+        $driveTypes = DriveType::all();
+        $fuelTypes = FuelType::all();
+        $bodyTypes = BodyType::all();
+        $state = State::all();
+
+        // Retrieve car data from the db
+        $car = Car::where('id', $carId)->first()->toArray();
+        // If no car is found with the given id, show a 404
+        abort_if(!$car, Response::HTTP_NOT_FOUND);
+
+        // Show the edit form view and pass the car object to it
+        return view('edit-car', compact('car', 'brands', 'models', 'usedOrNews', 'transmissions', 'driveTypes', 'fuelTypes', 'bodyTypes', 'state'));
+    }
+
+    public function deleteCar($carId)
+    {
+        $car = Car::findOrFail($carId); // Ensure the car exists
+        $car->delete(); // Delete the car
+
+        return redirect()->route('my-cars')->with('status', 'Car deleted successfully.');
     }
 
 
