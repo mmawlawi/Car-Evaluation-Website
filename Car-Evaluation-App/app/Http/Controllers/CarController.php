@@ -12,9 +12,12 @@ use App\Models\DriveType;
 use App\Models\FuelType;
 use App\Models\BodyType;
 use App\Models\State;
+use App\Models\Visit;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
 
 class CarController extends Controller
 {
@@ -291,7 +294,31 @@ class CarController extends Controller
             $carDetails['sellerEmail'] = 'N/A';
             $carDetails['sellerPhone'] = 'N/A';
         }
-
+        if (!Auth::check()) {
+            $visit = new Visit();
+            $visit->visitor_id = 0;
+            $visit->owner_id = $car->user_id;
+            $visit->car_id = $car->id;
+            $visit->guest_id = rand(10000000, 99999999);
+            $alreadyexists = Visit::where('owner_id', $car->user_id)->where('visitor_id', 0)->where('car_id', $car->id)->first();
+            if (!$alreadyexists){
+                $visit->save();
+            }
+            else if ((Carbon::now())->diffInMinutes($alreadyexists->created_at) > 60) {
+                $visit->save();
+            }
+            
+        }
+        else if (Auth::user()->id != $car->user_id) {
+            $visit = new Visit();
+            $visit->visitor_id = Auth::user()->id;
+            $visit->owner_id = $car->user_id;
+            $visit->car_id = $car->id;
+            $alreadyexists = Visit::where('owner_id', $car->user_id)->where('visitor_id', Auth::user()->id)->where('car_id', $car->id)->first();
+            if (!$alreadyexists) {
+                $visit->save();
+            }
+        }
         return view('car-details', $carDetails);
     }
 }

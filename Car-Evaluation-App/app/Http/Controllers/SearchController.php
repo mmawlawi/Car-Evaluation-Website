@@ -13,21 +13,18 @@ class SearchController extends Controller
     {
         $query = $request->input('query');
 
-        // First, get brand IDs that match the query
+        
         $brandIds = Brand::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
     
-        // Now, adjust the query to fetch cars by model name or brand ID with pagination
-        // This example assumes there's a direct relationship or a way to correlate cars with brands through models
         $allCars= Car::whereHas('model', function ($q) use ($query, $brandIds) {
             $q->where('name', 'LIKE', "%{$query}%")
                 ->orWhereIn('brand_id', $brandIds);
-        })->with('model')->paginate(24); // Adjust the pagination size as needed
+        })->with('model')->paginate(24); 
         $minYear = 1978;
         $maxYear = date("Y");
         $minPrice = 100;
         $maxPrice = 100000;
         $brands = Brand::select('id', 'name')->distinct()->get();
-        // Return the paginated list of cars
         return view('browse-cars', compact('brands' , 'allCars' , 'minYear' , 'maxYear' , 'minPrice' , 'maxPrice'));
     }
 }
