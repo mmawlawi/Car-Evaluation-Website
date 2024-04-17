@@ -60,20 +60,26 @@ a:hover {
     color: #F6A606; 
 }
 
+.list-group-btns{
+    float: right;
+    display: flex;
+}
+
 .btn {
     padding: 8px 15px; 
     margin-right: 10px;
+    width: 70px;
     border: none; 
     border-radius: 4px; 
     transition: background-color 0.3s ease; 
 }
 
-.btn-primary {
+#edit-btn {
     background-color: #EF5A42; 
     color: #ffffff; 
 }
 
-.btn-primary:hover {
+#edit-btn:hover {
     background-color: #F6A606; 
 }
 

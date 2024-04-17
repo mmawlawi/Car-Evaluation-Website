@@ -22,8 +22,8 @@
                         <p>Year: {{ $car->year }}</p>
                         <p>Kilometers: {{ number_format($car->kilometers) }}</p>
                         <p>Price: ${{ number_format($car->price, 2) }}</p>
-                        <div>
-                            <a href="{{ route('edit-car', $car->id) }}" class="btn btn-primary">Edit</a>
+                        <div class="list-group-btns">
+                            <a href="{{ route('edit-car', $car->id) }}" class="btn" id="edit-btn">Edit</a>
                             <form action="{{ route('delete-car', $car->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

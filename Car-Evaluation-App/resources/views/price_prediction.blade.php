@@ -1,10 +1,10 @@
-{{-- resources/views/price_prediction.blade.php --}}
+
 @extends('layout')
 
 @section('title', 'Car Price Prediction')
-
+<link rel="stylesheet" href="{{ asset('css/ price-prediction.css') }}">
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5" id="carPredictionContainer">
         <h1>Car Price Prediction</h1>
         <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
         @if (!empty($confidenceInterval))
@@ -51,7 +51,7 @@
         </form>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5" id="carPredictionContainer2">
         <h1>How Features Influence Prediction</h1>
         <p>This graph displays the relative importance of each feature used in predicting car prices. Features with higher
             values have a greater impact on the prediction outcome, highlighting the factors that significantly affect car
