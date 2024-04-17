@@ -3,9 +3,7 @@
 @section('title', 'Browse Cars')
 
 <link rel="stylesheet" href="{{ asset('css/browse-cars.css') }}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
-    integrity="sha512-3V8zRVx6wZqdpilMU4EWdHrOkT8U6Ld0Y4lTxLdDdO7331AeVnPfn2Sg0hTRuQ2+3rBTTYzUKcYdEQPCtD4Cog=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="{{ asset('js/browse-cars.js') }}"></script>
 
 @section('content')

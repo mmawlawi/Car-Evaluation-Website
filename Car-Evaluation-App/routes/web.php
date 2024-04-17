@@ -4,10 +4,12 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CarPredictionController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Controller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +49,7 @@ Route::post('/send-mail', [ContactController::class, 'sendMail'])->name('send-ma
 Route::get('/my-cars', [Controller::class, 'myCars'])->name('my-cars');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ProfileController::class, 'showDash'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

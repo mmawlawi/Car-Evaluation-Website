@@ -58,6 +58,11 @@ a {
 
 a:hover {
     color: #F6A606; 
+    text-decoration: none;
+}
+
+.carbox:hover {
+    text-decoration: none;
 }
 
 .btn {

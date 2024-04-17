@@ -10,7 +10,8 @@
         @else
             <div class="list-group">
                 @foreach ($cars as $car)
-                    <div class="list-group-item">
+                <a class = "carbox" href = "{{route('cardetails' , $car) }}" >
+                    <div onclick = "{{route('cardetails' , $car) }}" class="list-group-item">
                         <h5>{{ $car->brand->name ?? 'Brand Not Available' }} -
                             {{ $car->model->name ?? 'Model Not Available' }}</h5>
                         <p>Year: {{ $car->year }}</p>
@@ -21,6 +22,7 @@
                         <a href="{{ route('delete-car', $car->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a> --}}
                         </div>
                     </div>
+                </a>
                 @endforeach
             </div>
         @endif
