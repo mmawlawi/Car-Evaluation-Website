@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarModel extends Model
 {
     protected $table = 'model';
-    protected $fillable = ['name' , 'brand_id', 'photo_link_1', 'photo_link_2', 'photo_link_3', 'other'];
+    protected $fillable = ['name' , 'brand_id', 'photo_link_1', 'photo_link_2', 'photo_link_3'];
     public $timestamps = false;
 
     public function cars()

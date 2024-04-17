@@ -1,4 +1,3 @@
-
 @extends('layout')
 
 @section('title', 'Car Price Prediction')
@@ -9,7 +8,7 @@
         <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
         @if (!empty($confidenceInterval))
             <p><strong>Confidence Interval:</strong>
-                {{ $confidenceInterval * 100 }}%
+                {{ number_format($confidenceInterval * 100 ?? 0, 2) }}%
             </p>
         @endif
         @if (!empty($missing_fields))
@@ -35,7 +34,7 @@
             <div class="form-group">
                 <label for="userPrice">Enter Your Price ($):</label>
                 <input type="numeric" class="form-control" id="userPrice" name="userPrice"
-                    value="{{ number_format($prediction ?? 0, 2) }}" required step="0.01">
+                    value="{{ number_format($prediction ?? 0, 2, '.', '') }}" required step="0.01">
                 <small id="priceHelp" class="form-text text-muted"></small>
             </div>
             @if ($errors->any())

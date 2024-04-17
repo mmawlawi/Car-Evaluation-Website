@@ -39,38 +39,30 @@ class CarController extends Controller
         $validator = Validator::make($request->all(), [
             'brand_id' => [
                 'required',
-                Rule::when($request->input('brand_id') !== 'other', [
-                    'integer',
-                    'exists:brand,id'
-                ]),
+                Rule::when($request->input('brand_id') !== 'other', function () {
+                    return 'exists:brand,id';
+                }, function () {
+                    return 'in:other';
+                }),
             ],
             'model_id' => [
                 'required',
-                Rule::when($request->input('model_id') !== 'other', [
-                    'integer',
-                    'exists:model,id'
-                ]),
+                Rule::when($request->input('model_id') !== 'other', function () {
+                    return 'exists:model,id';
+                }, function () {
+                    return 'in:other';
+                }),
             ],
-            'other_brand' => [
-                'nullable', 'string', 'max:255',
-                Rule::requiredIf(function () use ($request) {
-                    return $request->brand_id === null || $request->brand_id === 'other';
-                })
-            ],
-            'other_model' => [
-                'nullable', 'string', 'max:255',
-                Rule::requiredIf(function () use ($request) {
-                    return $request->model_id === null || $request->model_id === 'other';
-                })
+            'state_id' => [
+                'nullable',
+                Rule::when($request->input('state_id') !== 'other', function () {
+                    return 'exists:state,id';
+                }, function () {
+                    return 'in:other';
+                }),
             ],
             'year' => 'required|integer|min:1886|max:' . date('Y'),
             'used_or_new_id' => 'required|integer|exists:used_or_new,id',
-            'state_id' => 'nullable',
-            Rule::when($request->input('state_id') !== 'other', [
-                'integer',
-                'exists:brand,id'
-            ]),
-            'other_state' => 'nullable', 'string', 'max:255',
             'transmission_id' => 'nullable|integer|exists:transmission,id',
             'drivetype_id' => 'nullable|integer|exists:drivetype,id',
             'fueltype_id' => 'nullable|integer|exists:fueltype,id',
@@ -104,11 +96,11 @@ class CarController extends Controller
     private function prepareDisplayData($validatedData)
     {
         $data = [
-            'Brand' => $validatedData['brand_id'] !== 'other' ? Brand::find($validatedData['brand_id'])->name : ($validatedData['other_brand'] ?? 'N/A'),
-            'Model' => $validatedData['model_id'] !== 'other' ? CarModel::find($validatedData['model_id'])->name : ($validatedData['other_model'] ?? 'N/A'),
+            'Brand' => $validatedData['brand_id'] !== 'other' ? Brand::find($validatedData['brand_id'])->name : 'Not specified',
+            'Model' => $validatedData['model_id'] !== 'other' ? CarModel::find($validatedData['model_id'])->name : 'Not specified',
             'Year' => $validatedData['year'],
             'Used or New' => UsedOrNew::find($validatedData['used_or_new_id'])->name,
-            'State' => ($validatedData['state_id'] !== 'other' && isset($validatedData['state_id']))? State::find($validatedData['state_id'])->name : ($validatedData['other_state'] ?? 'N/A'),
+            'State' => ($validatedData['state_id'] !== 'other' && isset($validatedData['state_id'])) ? State::find($validatedData['state_id'])->name : 'Not specified',
             'Transmission' => isset($validatedData['transmission_id']) ? Transmission::find($validatedData['transmission_id'])->name : 'Not specified',
             'Drive Type' => isset($validatedData['drivetype_id']) ? DriveType::find($validatedData['drivetype_id'])->name : 'Not specified',
             'Fuel Type' => isset($validatedData['fueltype_id']) ? FuelType::find($validatedData['fueltype_id'])->name : 'Not specified',
@@ -123,7 +115,7 @@ class CarController extends Controller
 
         // Remove any entries from the data array that are 'Not specified' or 'N/A'
         foreach ($data as $key => $value) {
-            if ($value === 'Not specified' || $value === 'N/A') {
+            if ($value === 'Not specified') {
                 unset($data[$key]);
             }
         }
@@ -140,15 +132,86 @@ class CarController extends Controller
         $driveTypes = DriveType::all();
         $fuelTypes = FuelType::all();
         $bodyTypes = BodyType::all();
-        $state = State::all();
+        $states = State::all();
 
         // Retrieve car data from the db
         $car = Car::where('id', $carId)->first()->toArray();
         // If no car is found with the given id, show a 404
         abort_if(!$car, Response::HTTP_NOT_FOUND);
-
         // Show the edit form view and pass the car object to it
-        return view('edit-car', compact('car', 'brands', 'models', 'usedOrNews', 'transmissions', 'driveTypes', 'fuelTypes', 'bodyTypes', 'state'));
+        return view('edit-car', compact('car', 'brands', 'models', 'usedOrNews', 'transmissions', 'driveTypes', 'fuelTypes', 'bodyTypes', 'states'));
+    }
+
+    public function updateCar(Request $request, $carId)
+    {
+        // Find the car by ID
+        $car = Car::findOrFail($carId);
+
+        $validator = Validator::make($request->all(), [
+            'brand_id' => [
+                'required',
+                Rule::when($request->input('brand_id') !== 'other', function () {
+                    return 'exists:brand,id';
+                }, function () {
+                    return 'in:other';
+                }),
+            ],
+            'model_id' => [
+                'required',
+                Rule::when($request->input('model_id') !== 'other', function () {
+                    return 'exists:model,id';
+                }, function () {
+                    return 'in:other';
+                }),
+            ],
+            'state_id' => [
+                'nullable',
+                Rule::when($request->input('state_id') !== 'other', function () {
+                    return 'exists:state,id';
+                }, function () {
+                    return 'in:other';
+                }),
+            ],
+            'year' => 'required|integer|min:1886|max:' . date('Y'),
+            'used_or_new_id' => 'required|integer|exists:used_or_new,id',
+            'transmission_id' => 'nullable|integer|exists:transmission,id',
+            'drivetype_id' => 'nullable|integer|exists:drivetype,id',
+            'fueltype_id' => 'nullable|integer|exists:fueltype,id',
+            'bodytype_id' => 'nullable|integer|exists:bodytype,id',
+            'doors' => 'nullable|integer|min:1|max:5',
+            'seats' => 'nullable|integer|min:1|max:22',
+            'cylinders' => 'nullable|integer|min:1|max:12',
+            'engine_l' => 'nullable|numeric|min:0|max:8',
+            'fuelconsumption' => 'nullable|numeric|min:3|max:30',
+            'kilometers' => 'required|integer|min:0',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validatedData = $validator->validated();
+
+        // Check if the 'brand_id' is 'other', remove it from saving to database
+        if (isset($validatedData['brand_id']) && $validatedData['brand_id'] === 'other') {
+            unset($validatedData['brand_id']); // Remove 'brand_id' from the array if it is 'other'
+        }
+        // Check if the 'model_id' is 'other', remove it from saving to database
+        if (isset($validatedData['model_id']) && $validatedData['model_id'] === 'other') {
+            unset($validatedData['model_id']); // Remove 'model_id' from the array if it is 'other'
+        }
+        // Check if the 'state_id' is 'other', remove it from saving to database
+        if (isset($validatedData['state_id']) && $validatedData['state_id'] === 'other') {
+            unset($validatedData['state_id']); // Remove 'state_id' from the array if it is 'other'
+        }
+
+        // Update the car with validated data
+        $car->update($validatedData);
+
+        // Redirect back to a specific page, such as the car details or car list page with a success message
+        return redirect()->route('my-cars')->with('success', 'Car updated successfully!');
     }
 
     public function deleteCar($carId)

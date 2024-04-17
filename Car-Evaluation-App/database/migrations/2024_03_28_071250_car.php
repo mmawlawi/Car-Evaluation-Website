@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('price');
             $table->float('engine_l');
             $table->integer('state_id');
+            $table->timestamps();
         });
     }
 
