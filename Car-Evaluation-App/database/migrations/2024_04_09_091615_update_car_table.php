@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('car', function (Blueprint $table) {
-            $table->integer('used_or_new_id')->change();
+            $table->integer('brand_id')->nullable()->change();
+            $table->integer('model_id')->nullable()->change();
             $table->integer('transmission_id')->nullable()->change();
             $table->integer('drivetype_id')->nullable()->change();
             $table->integer('fueltype_id')->nullable()->change();

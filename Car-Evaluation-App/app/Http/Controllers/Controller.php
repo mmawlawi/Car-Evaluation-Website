@@ -43,6 +43,19 @@ class Controller extends BaseController
             'price' => $validated['userPrice']
         ]);
 
+        // Check if the 'brand_id' is 'other', remove it from saving to database
+        if (isset($carData['brand_id']) && $carData['brand_id'] === 'other') {
+            unset($carData['brand_id']); // Remove 'brand_id' from the array if it is 'other'
+        }
+        // Check if the 'model_id' is 'other', remove it from saving to database
+        if (isset($carData['model_id']) && $carData['model_id'] === 'other') {
+            unset($carData['model_id']); // Remove 'model_id' from the array if it is 'other'
+        }
+        // Check if the 'state_id' is 'other', remove it from saving to database
+        if (isset($carData['state_id']) && $carData['state_id'] === 'other') {
+            unset($carData['state_id']); // Remove 'state_id' from the array if it is 'other'
+        }
+
         // Create the car in the database
         $car = new Car($carData);
         $car->save();
@@ -51,7 +64,7 @@ class Controller extends BaseController
         $request->session()->forget('car_data');
 
         // Redirect to a confirmation page or somewhere relevant
-        return redirect()->route('home')->with('status', 'Car submitted successfully.');
+        return redirect()->route('my-cars')->with('status', 'Car submitted successfully.');
     }
 
     public function myCars()

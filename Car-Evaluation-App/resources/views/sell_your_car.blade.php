@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="brand">Brand:</label>
                 <select name="brand_id" id="brand" class="form-control"
-                    onchange="updateModels() ; showOtherField('brand', 'other_brand')" required>
+                    onchange="updateModels()" required>
                     <option value="" selected>Choose a Brand</option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -22,17 +22,11 @@
                 @error('brand_id')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <input type="text" name="other_brand" id="other_brand" class="form-control mt-3" style="display:none;"
-                    value="{{ old('other_brand') }}" placeholder="Enter brand">
-                @error('other_brand')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
             </div>
 
             <div class="form-group">
                 <label for="model">Model:</label>
-                <select name="model_id" id="model" class="form-control"
-                    onchange="showOtherField('model', 'other_model')">
+                <select name="model_id" id="model" class="form-control">
                     <option value="" selected>Select a model</option>
                     @foreach ($models as $model)
                         <option value="{{ $model->id }}" brand_id = "{{ $model->brand_id }}">{{ $model->name }}</option>
@@ -40,11 +34,6 @@
                     <option value="other" brand_id = "Other">Other</option>
                 </select>
                 @error('model_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <input type="text" name="other_model" id="other_model" class="form-control mt-3" style="display:none;"
-                    value="{{ old('other_model') }}" placeholder="Enter model">
-                @error('other_model')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -81,8 +70,7 @@
 
             <div class="form-group">
                 <label for="state">State:</label>
-                <select name="state_id" id="state" class="form-control"
-                    onchange="showOtherField('state', 'other_state')">
+                <select name="state_id" id="state" class="form-control">
                     <option value="" selected>Select State</option>
                     @foreach ($state as $st)
                         <option value="{{ $st->id }}">{{ $st->name }}</option>
@@ -92,10 +80,7 @@
                 @error('state_id')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <input type="text" name="other_state" id="other_state" class="form-control mt-3" style="display:none;"
-                    placeholder="Enter state">
             </div>
-
 
             <div class="form-group">
                 <label for="transmission">Transmission:</label>

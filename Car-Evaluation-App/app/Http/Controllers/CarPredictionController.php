@@ -48,22 +48,18 @@ class CarPredictionController extends Controller
         $currentYear = date('Y');
         $data = [];
 
-        if (isset($requestData['brand_id'])) {
+        if (isset($requestData['brand_id']) && $requestData['brand_id'] != 'other') {
             $brand = Brand::find($requestData['brand_id']);
             if ($brand) {
                 $data["Brand"] = $brand->name;
             }
-        } elseif (!empty($requestData['other_brand'])) {
-            $data["Brand"] = $requestData['other_brand'];
         }
 
-        if (isset($requestData['model_id'])) {
+        if (isset($requestData['model_id']) && $requestData['model_id'] != 'other') {
             $model = CarModel::find($requestData['model_id']);
             if ($model) {
                 $data["Model"] = $model->name;
             }
-        } elseif (!empty($requestData['other_model'])) {
-            $data["Model"] = $requestData['other_model'];
         }
 
         if (isset($requestData['used_or_new_id'])) {
@@ -73,7 +69,7 @@ class CarPredictionController extends Controller
             }
         }
 
-        if (isset($requestData['state_id'])) {
+        if (isset($requestData['state_id']) && $requestData['state_id'] != 'other') {
             $state = State::find($requestData['state_id']);
             if ($state) {
                 $data["State"] = $state->name;
@@ -197,6 +193,6 @@ class CarPredictionController extends Controller
         $lower =  max(0, $adjustedAccuracy - 0.1);
         $upper = min(1, $adjustedAccuracy + 0.1);
         
-        return max(0.85, ($lower + $upper) / 2);
+        return min(0.85, ($lower + $upper) / 2);
     }
 }
