@@ -9,12 +9,10 @@ return new class extends Migration
     {
         Schema::table('model', function (Blueprint $table) {
             $table->boolean('other')->default(0);
-            $table->string('other_name')->nullable();
         });
 
         Schema::table('brand', function (Blueprint $table) {
             $table->boolean('other')->default(0);
-            $table->string('other_name')->nullable();
         });
     }
 
@@ -22,12 +20,10 @@ return new class extends Migration
     {
         Schema::table('model', function (Blueprint $table) {
             $table->dropColumn('other');
-            $table->dropColumn('other_name');
         });
 
         Schema::table('brand', function (Blueprint $table) {
             $table->dropColumn('other');
-            $table->dropColumn('other_name');
         });
     }
 };

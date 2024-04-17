@@ -1,0 +1,101 @@
+/* General container styling */
+#carPredictionContainer {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    color: #333;
+}
+
+h1 {
+    font-size: 28px;
+    color: #007BFF; /* Bootstrap primary blue */
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #343a40; /* Darker gray */
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Styling for forms and input */
+.form-group {
+    margin-bottom: 20px;
+}
+
+input[type="numeric"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    display: block;
+    transition: border-color 0.3s;
+}
+
+input[type="numeric"]:focus {
+    border-color: #007BFF; /* Highlight focus with primary color */
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Styling specific to the feature graph container */
+#featureGraphContainer {
+    text-align: center;
+    padding: 20px;
+}
+
+#featureImportanceGraph {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.small {
+    font-size: 14px;
+    color: #999;
+}

@@ -48,6 +48,10 @@ Route::post('/send-mail', [ContactController::class, 'sendMail'])->name('send-ma
 
 Route::get('/my-cars', [Controller::class, 'myCars'])->name('my-cars');
 
+Route::get('/edit-car/{carId}', [CarController::class, 'editCar'])->name('edit-car');
+Route::put('/update-car/{carId}', [CarController::class, 'updateCar'])->name('update-car');
+Route::delete('/delete-car/{carId}',  [CarController::class, 'deleteCar'])->name('delete-car');
+
 
 Route::get('/dashboard', [ProfileController::class, 'showDash'])->middleware(['auth', 'verified'])->name('dashboard');
 

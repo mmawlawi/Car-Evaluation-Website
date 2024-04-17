@@ -1,10 +1,10 @@
-{{-- resources/views/price_prediction.blade.php --}}
+
 @extends('layout')
 
 @section('title', 'Car Price Prediction')
-
+<link rel="stylesheet" href="{{ asset('css/ price-prediction.css') }}">
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5" id="carPredictionContainer">
         <h1>Car Price Prediction</h1>
         <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
         @if (!empty($confidenceInterval))
@@ -51,7 +51,7 @@
         </form>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5" id="carPredictionContainer2">
         <h1>How Features Influence Prediction</h1>
         <p>This graph displays the relative importance of each feature used in predicting car prices. Features with higher
             values have a greater impact on the prediction outcome, highlighting the factors that significantly affect car
@@ -61,33 +61,31 @@
                 alt="Feature Importance Graph" onerror="fetchFeatureImportanceGraph()">
         </div>
     </div>
-        
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function fetchFeatureImportanceGraph() {
-                const graphElement = document.getElementById('featureImportanceGraph');
-                if (!graphElement.complete || graphElement.naturalWidth === 0) {
-                    fetch('/predict/feature-importance-graph')
-                        .then(response => response.blob())
-                        .then(imageBlob => {
-                            const imageUrl = URL.createObjectURL(imageBlob);
-                            graphElement.src = imageUrl;
-                            graphElement.alt = "Feature Importance Graph";
-                        }).catch(error => {
-                            console.error('Error fetching feature graph:', error);
-                            document.getElementById('featureGraphContainer').innerText =
-                                'Failed to load feature importance graph.';
-                        });
-                }
-            }
 
+    <script>
+        function fetchFeatureImportanceGraph() {
+            const graphElement = document.getElementById('featureImportanceGraph');
+            if (!graphElement.complete || graphElement.naturalWidth === 0) {
+                fetch('/predict/feature-importance-graph')
+                    .then(response => response.blob())
+                    .then(imageBlob => {
+                        const imageUrl = URL.createObjectURL(imageBlob);
+                        graphElement.src = imageUrl;
+                        graphElement.alt = "Feature Importance Graph";
+                    }).catch(error => {
+                        console.error('Error fetching feature graph:', error);
+                        document.getElementById('featureGraphContainer').innerText =
+                            'Failed to load feature importance graph.';
+                    });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
             // Price validation
             const userPriceInput = document.getElementById('userPrice');
             const priceHelp = document.getElementById('priceHelp');
             const predictedPrice = parseFloat(userPriceInput.value.replace(/,/g, '')); // remove commas for parsing
-            const confidenceScale = ({{ $confidenceInterval['lower'] ?? 0.85 }} +
-                    {{ $confidenceInterval['upper'] ?? 0.85 }}) /
-                2; // Average of lower and upper confidence percentages
+            const confidenceScale = {{ $confidenceInterval ?? 0.85 }}
             const priceRangeFactor = 1 - confidenceScale; // Smaller range when confidence is high
 
             const lowerPriceRange = predictedPrice - (predictedPrice * priceRangeFactor);
