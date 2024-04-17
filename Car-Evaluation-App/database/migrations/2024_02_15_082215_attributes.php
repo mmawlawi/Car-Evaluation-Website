@@ -50,6 +50,7 @@ return new class extends Migration
         Schema::create('state', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('other');
         });
     }
 };
