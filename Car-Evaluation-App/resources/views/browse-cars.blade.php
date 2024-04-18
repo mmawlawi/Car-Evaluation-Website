@@ -13,7 +13,7 @@
             <form method="GET" action="/filter-cars" id="filters-form">
                 <div class="filter-options">
                     <label for="make-filter" style="font-size: 18px">Make:</label>
-                    <select id="make-filter"  name="make_filter" onchange="updateModels()">
+                    <select id="make-filter" name="make_filter" onchange="updateModels()">
                         <option value="">All Makes</option>
                         @foreach ($brands as $brand)
                             <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -29,16 +29,16 @@
                     <span id="year-range-value">{{ $minYear }} - {{ $maxYear }}</span>
                     <input type="range" id="year-min" name="year_min" min="{{ $minYear }}" max="{{ $maxYear }}"
                         value="{{ $minYear }}" oninput="updateYearValue()">
-                    <input type="range" id="year-max" name="year_max" min="{{ $minYear }}" max="{{ $maxYear }}"
-                        value="{{ $maxYear }}" oninput="updateYearValue()">
-                    
+                    <input type="range" id="year-max" name="year_max" min="{{ $minYear }}"
+                        max="{{ $maxYear }}" value="{{ $maxYear }}" oninput="updateYearValue()">
+
                     <label for="price-range" style="font-size: 18px"><strong>Price Range:</strong></label>
                     <span id="price-range-value">${{ $minPrice }} - ${{ $maxPrice }}</span>
                     <input type="range" id="price-min" name="price_min" min="{{ $minPrice }}"
-                        max="{{ $maxPrice }}" value="{{ $minPrice }}" step="1000" oninput="updatePriceValue()"> 
+                        max="{{ $maxPrice }}" value="{{ $minPrice }}" step="1000" oninput="updatePriceValue()">
                     <input type="range" id="price-max" name="price_max" min="{{ $minPrice }}"
                         max="{{ $maxPrice }}" value="{{ $maxPrice }}" step="1000" oninput="updatePriceValue()">
-                    
+
 
                     <button type="submit" id="apply-filters-btn">Apply Filters</button>
                 </div>
@@ -56,8 +56,7 @@
                         <div class="car-details">
                             <h3 id="CarNameText">{{ $car->year }} {{ $car->brand->name }} {{ $car->model->name }}</h3>
                             <div class="car-image">
-                                <img src="{{  $car->random_photo_url  ?? asset('images/default-car.jpg') }}"
-                                    alt="Car Image"
+                                <img src="{{ $car->random_photo_url ?? asset('images/default-car.jpg') }}" alt="Car Image"
                                     onerror="this.onerror=null; this.src='{{ asset('images/default-car.jpg') }}';">
 
                                 <div class="overlay"></div>
@@ -70,15 +69,18 @@
                             </div>
                         </div>
                         <div class="discover-car-btn-div">
-                            <button class="discover-car-btn" onclick="window.location.href = '{{route('cardetails' , $car)}}'">Discover Car</button>
+                            <button class="discover-car-btn"
+                                onclick="window.location.href = '{{ route('cardetails', $car) }}'">Discover Car</button>
                         </div>
                     </div>
                     </a>
                 @endforeach
             </div>
-            <div class="pagination">
-                {{ $allCars->links('vendor.pagination.custom') }}
-            </div>
+            @if (!Request::is('search'))
+                <div class="pagination">
+                    {{ $allCars->links('vendor.pagination.custom') }}
+                </div>
+            @endif
         @endif
     </div>
 
