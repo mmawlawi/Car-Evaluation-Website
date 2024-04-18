@@ -7,7 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use App\Models\Visit;
 
 class ProfileController extends Controller
 {
@@ -16,7 +18,9 @@ class ProfileController extends Controller
      */
     public function showDash() {
         $user = Auth::user();
-        return view('layouts.navigation' , compact('user'));
+        $visits = Visit::where('owner_id', $user->id)
+                ->get();
+        return view('layouts.navigation' , compact('user' , 'visits'));
     }
     
      public function edit(Request $request): View
