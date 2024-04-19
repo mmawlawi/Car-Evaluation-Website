@@ -11,9 +11,9 @@
                 
         <div class="visits-box">
             
-            @empty($visits->items) 
+            @if($visits->isEmpty()) 
                 <p> No new visits</p>
-            @endempty
+            @endif
             @foreach ($visits->reverse() as $visit)
                 <div class="visit">
                     @if ($visit->visitor_id == 0)
