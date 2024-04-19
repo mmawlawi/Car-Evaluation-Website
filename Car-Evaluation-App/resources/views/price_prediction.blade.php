@@ -1,22 +1,22 @@
 @extends('layout')
 
 @section('title', 'Car Price Prediction')
-<link rel="stylesheet" href="{{ asset('css/ price-prediction.css') }}">
+<link rel="stylesheet" href="{{ asset('css/price-prediction.css') }}">
 @section('content')
-    <div class="container mt-5" id="carPredictionContainer">
-        <h1>Car Price Prediction</h1>
-        <p><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
+    <div class="price-prediction-container" id="carPredictionContainer">
+        <h1 class="price-prediction-title">Car Price Prediction</h1>
+        <p class="price-prediction-info"><strong>Predicted Price:</strong> {{ number_format($prediction ?? 0, 2) }}</p>
         @if (!empty($confidenceInterval))
-            <p><strong>Confidence Interval:</strong>
+            <p class="price-prediction-info"><strong>How acurate are the Results:</strong>
                 {{ number_format($confidenceInterval * 100 ?? 0, 2) }}%
             </p>
         @endif
         @if (!empty($missing_fields))
-            <p><strong>Missing Fields:</strong> {{ implode(', ', $missing_fields) }}</p>
+            <p class="price-prediction-info"><strong>Missing Fields:</strong> {{ implode(', ', $missing_fields) }}</p>
         @endif
 
         {{-- Displaying Car Details --}}
-        <div class="mt-4 mb-4">
+        <div class="price-prediction-details">
             <h2>Car Details Confirmation</h2>
             @if (!empty($DisplayData))
                 <ul>
@@ -29,7 +29,7 @@
             @endif
         </div>
 
-        <form id="priceForm" action="{{ route('submit-price') }}" method="POST">
+        <form id="priceForm" class="price-prediction-form" action="{{ route('submit-price') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="userPrice">Enter Your Price ($):</label>
@@ -50,11 +50,11 @@
         </form>
     </div>
 
-    <div class="container mt-5" id="carPredictionContainer2">
-        <h1>How Features Influence Prediction</h1>
-        <p>This graph displays the relative importance of each feature used in predicting car prices. Features with higher
-            values have a greater impact on the prediction outcome, highlighting the factors that significantly affect car
-            valuations.</p>
+    <div class="price-prediction-container" id="carPredictionContainer2">
+        <h1 class="price-prediction-title">How Features Influence Prediction</h1>
+        <p class="price-prediction-info">This graph displays the relative importance of each feature used in predicting car
+            prices. Features with higher values have a greater impact on the prediction outcome, highlighting the factors
+            that significantly affect car valuations.</p>
         <div id="featureGraphContainer">
             <img id="featureImportanceGraph" src="{{ asset('storage/feature_importance_graph.png') }}"
                 alt="Feature Importance Graph" onerror="fetchFeatureImportanceGraph()">

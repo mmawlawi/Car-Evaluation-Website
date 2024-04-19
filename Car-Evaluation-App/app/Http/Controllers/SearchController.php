@@ -20,6 +20,9 @@ class SearchController extends Controller
             $q->where('name', 'LIKE', "%{$query}%")
                 ->orWhereIn('brand_id', $brandIds);
         })->with('model')->paginate(24); 
+        foreach ($allCars as $car) {
+            $car->random_photo_url = $car->model->getRandomPhotoUrl();
+        }
         $minYear = 1978;
         $maxYear = date("Y");
         $minPrice = 100;

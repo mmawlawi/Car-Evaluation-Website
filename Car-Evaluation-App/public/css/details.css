@@ -68,6 +68,10 @@
     text-align: center;
 }
 
+.attributes-grid .card:last-child {
+    grid-column: 1 / -1;
+}
+
 .price-contact-wrapper {
     grid-column: 1 / -1; 
     display: flex;
@@ -145,6 +149,13 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+@media (max-width: 1010px) {
+    .attributes-grid .card:last-child {
+        grid-column: auto;
+    }
+    
 }
 @media (max-width: 768px) {
     .car-details {
