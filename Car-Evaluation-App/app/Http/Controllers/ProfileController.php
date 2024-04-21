@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Models\Visit;
+use App\Models\Car;
 
 class ProfileController extends Controller
 {
@@ -20,7 +21,8 @@ class ProfileController extends Controller
         $user = Auth::user();
         $visits = Visit::where('owner_id', $user->id)
                 ->get();
-        return view('layouts.navigation' , compact('user' , 'visits'));
+        $nb_cars = Car::where('user_id' , $user->id)->count();
+        return view('layouts.navigation' , compact('user' , 'visits' , 'nb_cars'));
     }
     
      public function edit(Request $request): View

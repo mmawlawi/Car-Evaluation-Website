@@ -96,3 +96,7 @@ a:hover {
 .btn-danger:hover {
     background-color: #c9302c; 
 }
+
+.edit-modal {
+    display: none;
+}

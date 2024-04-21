@@ -1,14 +1,105 @@
-.visits-box {
-    width: 300px; 
-    height: 200px; 
-    overflow-y: auto; 
-    border: 1px solid #ccc; 
-    padding: 10px; 
+.main-content {
+    display: flex;
+    min-height: 56.87vh;
+    background-color: #fff; 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.main-content:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.content-left {
+    flex: 1; 
+    padding:10px;
+}
+.content-left h1 {
+    margin-bottom:5%;
+}
+
+.visits-box {
+    width: 50%; 
+    overflow-y: scroll;
+    height: 355px; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+    margin:25px 10px;
+    background-color: #f4f4f4; 
+}
+
+
 .visit {
-    margin-bottom: 10px; 
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    transition: all 0.3s ease-in-out; 
+}
+.visit:hover {
     background-color: #f9f9f9; 
-    padding: 5px; 
-    border-radius: 5px; 
+    border-color: #EF5A42; 
+    cursor: pointer;
+}
+
+.error {
+    color: rgb(214, 4, 4)
+}
+
+.buttons {
+    margin-top: 5%;
+}
+.buttons button {
+    padding: 8px 15px; 
+    margin-right: 10px;
+    width: 180px;
+    border: none; 
+    border-radius: 4px; 
+    transition: background-color 0.3s ease; 
+}
+
+#edit-btn {
+    background-color: #EF5A42; 
+    color: #ffffff; 
+}
+
+#edit-btn:hover {
+    background-color: #F6A606; 
+}
+
+#logout-btn {
+    background-color: #d9534f; 
+    color: #ffffff; /
+}
+
+#logout-btn:hover {
+    background-color: #c9302c; 
+}
+
+#edit-modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+
+#modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 5px;
 }
