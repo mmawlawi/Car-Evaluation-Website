@@ -8,7 +8,7 @@ use App\Models\Brand;
 use App\Models\CarModel;
 use App\Models\UsedOrNew;
 use App\Models\Transmission;
-use App\Models\DriveType;
+use App\Models\Drivetype;
 use App\Models\FuelType;
 use App\Models\BodyType;
 use App\Models\State;
@@ -27,7 +27,7 @@ class CarController extends Controller
         $models = CarModel::orderBy('name', 'asc')->get();
         $usedOrNews = UsedOrNew::all();
         $transmissions = Transmission::all();
-        $driveTypes = DriveType::all();
+        $driveTypes = Drivetype::all();
         $fuelTypes = FuelType::all();
         $bodyTypes = BodyType::all();
         $state = State::all();

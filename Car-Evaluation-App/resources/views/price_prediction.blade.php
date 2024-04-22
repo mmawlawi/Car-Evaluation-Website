@@ -56,7 +56,7 @@
             prices. Features with higher values have a greater impact on the prediction outcome, highlighting the factors
             that significantly affect car valuations.</p>
         <div id="featureGraphContainer">
-            <img id="featureImportanceGraph" src="{{ asset('storage/feature_importance_graph.png') }}"
+            <img id="featureImportanceGraph" style="width: 100%" src="{{ asset('images/feature-importance.jpg') }}"
                 alt="Feature Importance Graph" onerror="fetchFeatureImportanceGraph()">
         </div>
     </div>
