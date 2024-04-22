@@ -56,9 +56,9 @@ Route::delete('/delete-car/{carId}',  [CarController::class, 'deleteCar'])->name
 Route::get('/dashboard', [ProfileController::class, 'showDash'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/update-phone-number', [ProfileController::class, 'updatePhoneNumber'])->name('update.phone_number');
+    Route::post('/update-email', [ProfileController::class, 'updateEmail'])->name('update.email');
+    Route::post('/update-password', [ProfileController::class, 'updatePassword'])->name('update.password');
 });
 
 require __DIR__.'/auth.php';
