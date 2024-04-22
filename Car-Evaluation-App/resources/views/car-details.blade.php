@@ -95,10 +95,14 @@
                         <button onclick = "copyToClipboard('{{ $sellerEmail }}' , 'email')"
                             class = "contact-seller-action">Email</button>
                     </a>
-                    <a href="tel:{{ $sellerPhone }}">
-                        <button onclick = "copyToClipboard('{{ $sellerPhone }}' , 'phone')"
-                            class = "contact-seller-action">Call</button>
-                    </a>
+                    @if($sellerPhone)
+                        <a href="tel:{{ $sellerPhone }}">
+                            <button onclick = "copyToClipboard('{{ $sellerPhone }}' , 'phone')"
+                                class = "contact-seller-action">Call</button>
+                        </a>
+                    @else
+                    <button class = "contact-seller-action-disabled">Call</button>
+                    @endif
                     <p id = "copy-message" style = "display: none;"></p>
                 </div>
             @else
