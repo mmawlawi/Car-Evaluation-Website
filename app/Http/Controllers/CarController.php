@@ -309,25 +309,25 @@ class CarController extends Controller
     public function showCarDetails(Car $car)
     {
 
-        $brand = $car->brand->name;
-        $model = $car->model->name;
-        $usedOrNew = $car->usedOrNew->name;
-        $transmission = $car->transmission->name;
-        $drive = $car->driveType->name;
-        $fuel = $car->fuelType->name;
-        $body = $car->bodyType->name;
-        $state = $car->state->name;
-        $price = $car->price;
-        $year = $car->year;
-        $fuelconsumption = $car->fuelconsumption;
-        $cylinders = $car->cylinders;
-        $kilometers = $car->kilometers;
-        $doors = $car->doors;
-        $seats = $car->seats;
-        $enginesize = $car->engine_l;
-        $carModelInstance = $car->model;
+        $brand = $car->brand->name ?? 'Not Specified';
+        $model = $car->model->name ?? 'Not Specified';
+        $usedOrNew = $car->usedOrNew->name ?? 'Not Specified';
+        $transmission = $car->transmission->name ?? 'Not Specified';
+        $drive = $car->driveType->name ?? 'Not Specified';
+        $fuel = $car->fuelType->name ?? 'Not Specified';
+        $body = $car->bodyType->name ?? 'Not Specified';
+        $state = $car->state->name ?? 'Not Specified';
+        $price = $car->price ?? 'Not Specified';
+        $year = $car->year ?? 'Not Specified';
+        $fuelconsumption = $car->fuelconsumption ?? 'Not Specified';
+        $cylinders = $car->cylinders ?? 'Not Specified';
+        $kilometers = $car->kilometers ?? 'Not Specified';
+        $doors = $car->doors ?? 'Not Specified';
+        $seats = $car->seats ?? 'Not Specified';
+        $enginesize = $car->engine_l ?? 'Not Specified';
+        $carModelInstance = $car->model ?? 'Not Specified';
         $photolink = $carModelInstance->getRandomPhotoUrl();
-        $seller = $car->user;
+        $seller = $car->user ?? 'Not Specified';
         $carDetails = compact(
             'brand',
             'model',
